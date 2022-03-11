@@ -46,13 +46,13 @@ const MintButton: FC = () => {
           onClick={() => {contract.mintNFT( {value: temp})}}
           bg="gray.800"
           border="1px solid transparent"
-          _hover={{ border: "1px", borderRadius: "10px", borderStyle: "solid", backgroundColor: "blue" }}
+          _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "blue" }}
           m="1px"
           px={3}
           height="38px"
           width="140px"
         >
-          <Box px="3"><Text color="white" fontSize="md"> Mint NFT(s) </Text></Box>
+          <Box px="3"><Text color="white" fontSize="md"> Mint NFT </Text></Box>
         </Button>
       </Box>
       <br />
@@ -65,14 +65,14 @@ const MintButton: FC = () => {
           onClick={testClick}
           bg="gray"
           border="1px solid transparent"
-          _hover={{ border: "1px", borderRadius: "10px", borderStyle: "solid", backgroundColor: "red" }}
+          _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "red" }}
           borderRadius="xl"
           m="1px"
           px={3}
           height="38px"
           width="140px"
         >
-          <Box px="3"><Text color="white" fontSize="md"> Mint NFT(s) </Text></Box>
+          <Box px="3"><Text color="white" fontSize="md"> Mint NFT </Text></Box>
         </Button>
       </Box>
       <br />

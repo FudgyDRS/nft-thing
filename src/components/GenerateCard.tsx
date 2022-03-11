@@ -8,6 +8,8 @@ import { OwnerOf, } from "../abi/mtvSharks";
 
 import { useEthers } from "../modules/usedapp2/hooks";
 
+import StatusCircle from "./StatusCircle";
+// import market functions
 
 interface Props { sharkObject?: SharkObject; }
 function GenerateCard({sharkObject}: Props) {
@@ -17,12 +19,13 @@ function GenerateCard({sharkObject}: Props) {
     ownerOf = ownerOf ? ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length) : "";
   return sharkObject ? (
     <Box>
-      <Card style={{ width: '200px' }}>
+      <Card className="generic-card" style={{ width: '200px' }}>
+        <Card.Text ><StatusCircle input={1}/></Card.Text>
         <Card.Img variant="top" src={require("../assets/compressed/" + sharkObject["custom_fields"].edition + ".png").default} />
         <Card.Body>
           <Card.Title>{sharkObject.name}</Card.Title>
           {/* <Card.Text color="black">Owner:<br/>{ownerOf.slice(0, 6)}...{ownerOf.slice(ownerOf.length - 4, ownerOf.length)}</Card.Text> */}
-          <Card.Text color="black">Owner:<br/>{ownerOf}</Card.Text>
+          <Card.Text color="black" >Owner:<br/>{ownerOf}</Card.Text>
         </Card.Body>
       </Card>
     </Box>

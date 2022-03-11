@@ -1,0 +1,542 @@
+[
+  {
+    "name": "MTV Sharks #1",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/1.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Midnight Seaweed "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Radioactive "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "No Spots "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Ocean Deep "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "None "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Cigar with Regular Teeth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Readers "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Devil Horns "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Chef Knife "
+      }
+    ],
+    "custom_fields": {
+      "dna": "c19a201f63b99c5a52b9f34cee7c29c15aa46b5a",
+      "edition": 1,
+      "date": 1645535842217,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #2",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/2.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Sharks n Stuff "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Ruby "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "No Spots "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Stoned Eyes "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "Happy "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Joint with Regular Teeth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Hooked "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Crown "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Pool Stick "
+      }
+    ],
+    "custom_fields": {
+      "dna": "da049407b3c763689499e45c23a9ec8bb23ceacc",
+      "edition": 2,
+      "date": 1645535843500,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #3",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/3.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Midnight Colony "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Sunshine "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Stoned Eyes "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "None "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Vampie Teeth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora No Bot Outline "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Green Apple "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Trident "
+      }
+    ],
+    "custom_fields": {
+      "dna": "88523998bc474ce2bd938ddcd02adf62724310e6",
+      "edition": 3,
+      "date": 1645535844996,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #4",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/4.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Midnight Shipwreck "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Sunshine "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Ocean Deep "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "Angry "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Goofy Smile "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Hooked "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Shark Hat "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Digital Watch "
+      }
+    ],
+    "custom_fields": {
+      "dna": "007f6b7fc7b9a1ba51c37f766f51e8612ddb564f",
+      "edition": 4,
+      "date": 1645535846461,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #5",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/5.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Underwater Light "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Blueberry "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Gem "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "None "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Sharp Shark Teeth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Tin Can "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Gold Watch "
+      }
+    ],
+    "custom_fields": {
+      "dna": "51cd3171c27e56b401de9cdd2965daa692954570",
+      "edition": 5,
+      "date": 1645535848153,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #6",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/6.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Sharks n Stuff "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Grey "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Gem "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "Normal "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Goofy Smile "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora No Bot Outline "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Beanie "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Digital Watch "
+      }
+    ],
+    "custom_fields": {
+      "dna": "f8aacb1e5df5a0135862e24d57353a59f1fe8255",
+      "edition": 6,
+      "date": 1645535849601,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #7",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/7.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Underwater City "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Grey "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Common Eyes "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "Normal "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Buck Teeth with Braces "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Octopus "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Flower Hat "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Digital Watch "
+      }
+    ],
+    "custom_fields": {
+      "dna": "819c25ce0b1b04fc745aa04343a0279cde265384",
+      "edition": 7,
+      "date": 1645535851342,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #8",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/8.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Underwater City "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Grey "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "Spotted "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Ocean Deep "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "Angry "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Vampie Teeth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Chef Hat "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Sword Fish "
+      }
+    ],
+    "custom_fields": {
+      "dna": "0f0472dc91fe3c4ef07fd1074509e3c673bb5cbe",
+      "edition": 8,
+      "date": 1645535853058,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #9",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/9.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Midnight Seaweed "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Grey "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "No Spots "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Seafloor Eyes "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "None "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Up Tooth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora No Bot Outline "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Chef Hat "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Fish Tie "
+      }
+    ],
+    "custom_fields": {
+      "dna": "bdfd39af3fd552af5355d4ea5bb27ecb390cdbff",
+      "edition": 9,
+      "date": 1645535854562,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  },
+  {
+    "name": "MTV Sharks #10",
+    "description": "MTV Sharks swim together and win together.",
+    "file_url": "https://gateway.pinata.cloud/ipfs/QmbYfMUF9r47pvFwa99jGRhCPg7heV4UzmsGnEy5VHSiid/10.png",
+    "attributes": [
+      {
+        "trait_type": "Background",
+        "value": "Underwater Colony "
+      },
+      {
+        "trait_type": "Color",
+        "value": "Sand Shark "
+      },
+      {
+        "trait_type": "Spots",
+        "value": "No Spots "
+      },
+      {
+        "trait_type": "Base",
+        "value": "Base"
+      },
+      {
+        "trait_type": "Eyes",
+        "value": "Diamond Shine "
+      },
+      {
+        "trait_type": "Eyebrow",
+        "value": "None "
+      },
+      {
+        "trait_type": "Mouth",
+        "value": "Up Tooth "
+      },
+      {
+        "trait_type": "Nose Area",
+        "value": "Remora No Bot Outline "
+      },
+      {
+        "trait_type": "Head",
+        "value": "Seashell "
+      },
+      {
+        "trait_type": "Wrist",
+        "value": "Pool Stick "
+      }
+    ],
+    "custom_fields": {
+      "dna": "a4656b603065ac2dbf6d13e8cf3a7673c70d4035",
+      "edition": 10,
+      "date": 1645535856035,
+      "compiler": "HashLips Art Engine"
+    },
+    "external_url": "MTVsharks.art"
+  }
+]

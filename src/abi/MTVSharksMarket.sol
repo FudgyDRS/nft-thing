@@ -127,6 +127,19 @@ contract TestContract is Ownable {
         }
     modifier admin() { require(msg.sender == owner(), "Admin only"); _; }
     
+// method to start auction
+// method to start sale
+// method to buy art
+// method to offer buy art
+// method to cancel auction
+// method to cancel sale
+// method to cancel offer
+// method to see all current offers
+// method to order auctions by ending soonest
+// method to order sales by type, recent listed, price
+// method to see all trade logs
+// method to see all trade logs for specific NFT
+// method to see all listing logs
 
     uint256 public volume;              // num of successfully traded
     uint256 public tradeVolume;         // value of successfully traded
@@ -140,6 +153,7 @@ contract TestContract is Ownable {
     // ongoing:   stop == 1 
     // canceled:  stop == 2
     // sent:      stop == 0 & start == 0
+    // aributration stop == 3
     // autioning: stop > start
     struct listing { uint256 tradeId; address account; uint256 value; uint256 start; uint256 stop; address to; } // id == tradeId, not nftId
     mapping(uint256 => listing[]) history;  // specific NFT's history, also indicates current status
@@ -153,42 +167,43 @@ contract TestContract is Ownable {
     // last x minted from (totalSupply)
     // last x listed
     // last x traded
-    // last x sent
+    // last x sent: cannot know, can only check if account of last history
     // bid escrow
     // auction if end > block.timestamp
-    /*
-    function addTraded(uint256 _id, address _account, uint256 _value, uint256 _start, uint256 _stop) internal {
-        if(traded.length > 0)
-        if(traded[traded.length.length-1].stop < _stop - 86400)
-        traded = new listing[];
-        traded.push(listing(_id, _account, _value, _start, _stop));
-    }*/
 
-    function listTrade(uint256 _id, uint256 _value, uint256 _duration) public {
+    // list sell / auction
+    function listTrade(uint256 _id, uint256 _value, uint256 _duration) public noreentry {
         listing memory _listing = history[_id][history[_id].length-1];
         require(_listing.stop == 1 || _listing.stop > _listing.start, "NFT already listed");
         sendNft(msg.sender, address(this), _id);
 
+        // Add listing to NFTs history
         _listing =_duration <= block.timestamp
-            ? listing(_id, msg.sender, _value, block.timestamp, 1, address(0))
-            : listing(_id, msg.sender, _value, block.timestamp, block.timestamp + _duration, address(0));
+            ? listing(listVolume, msg.sender, _value, block.timestamp, 1, address(0))
+            : listing(listVolume, msg.sender, _value, block.timestamp, block.timestamp + _duration, address(0));
         history[_id].push(_listing);
         
+        // Add listing to tradeId
         tradeId[listVolume++] = _listing;
         }
-    function bestOffer(uint256 _tradeId) public returns(uint256 index) {
+    // return current best offer for NFT
+    function bestOffer(uint256 _tradeId) public view returns(uint256 index) {
         uint256 i;
         while(i<bids[_tradeId].length) { index = bids[_tradeId][index].amount < bids[_tradeId][i++].amount ? index : i; }
         }
-    function acceptBestOffer(uint256 _id) public {
+    // accept best offer (auction or stray offers) -> swap tokens and NFT
+    function acceptBestOffer(uint256 _id) public noreentry {
         listing storage _listing = history[_id][history[_id].length -1];
         require(_listing.stop < block.timestamp, "NFT in auction");
         require(msg.sender == _listing.account, "Not NFT owner");
 
+        // Reentry blocked by setting bid state to zero
         bid memory _bestOffer = bids[_listing.tradeId][bestOffer(_listing.tradeId)];
         bids[_listing.tradeId][bestOffer(_listing.tradeId)].amount = 0;
         require(_bestOffer.amount != 0, "No offers");
 
+        // Swap NFT and Tokens
+        // If stop time is 0, nftId is assigned to a user
         uint256 _fee = _bestOffer.amount * fee / 1000;
         _listing.stop == 0
             ? sendNft(msg.sender, _bestOffer.account, _id)
@@ -196,81 +211,79 @@ contract TestContract is Ownable {
         require(address(this).balance >= _bestOffer.amount, "Insufficent contract balance");
         msg.sender.call{value: _bestOffer.amount - _fee}("");
         owner().call{value: _fee}("");
+        escrow -= _bestOffer.amount;
         
+        // Refund unused bids and increment trade volume
         escrowRefund(_listing.tradeId);
         tradeVolume += _bestOffer.amount;
 
+        // Complete trade by adding 'stop' and 'to' to the history and tradeId listings
         _listing.stop = block.timestamp;
-        tradeId[_listing.tradeId].stop = _listing.stop;
         _listing.to = _bestOffer.account;
-        
         tradeId[_listing.tradeId].stop = _listing.stop;
         tradeId[_listing.tradeId].to = _listing.to;
 
-        listing memory newListing = listing(listVolume, _bestOffer.account, 0, 0, 0, address(0));
+        // Create new history and tradeId for new owner to accept static offers
+        listing memory newListing = listing(listVolume, _bestOffer.account, 0, block.timestamp, 1, address(0));
         tradeId[listVolume] = newListing;
         history[_id][history[_id].length] = newListing;
+        listVolume++;
         }
-    function claimWonAuction(uint256 _id) public {
+    // let winner of auction swap tokens and NFT
+    function claimWonAuction(uint256 _id) public noreentry {
         listing storage _listing = history[_id][history[_id].length -1];
         require(_listing.stop < block.timestamp, "NFT in auction");
 
+        // Reentry blocked by setting bid state to zero
         bid memory _bestOffer = bids[_listing.tradeId][bestOffer(_listing.tradeId)];
         bids[_listing.tradeId][bestOffer(_listing.tradeId)].amount = 0;
         require(_bestOffer.amount != 0, "Invalid offer");
         require(msg.sender == _bestOffer.account, "Not bid owner");
 
+        // Swap NFT and Tokens
         sendNft(address(this), _bestOffer.account, _id);
-
         uint256 _fee = _bestOffer.amount * fee / 1000;
         require(address(this).balance >= _bestOffer.amount, "Insufficent contract balance");
         _listing.account.call{value: _bestOffer.amount - _fee}("");
         owner().call{value: _fee}("");
+        escrow -= _bestOffer.amount;
 
+        // Refund unused bids and increment trade volume
         escrowRefund(_listing.tradeId);
         tradeVolume += _bestOffer.amount;
 
+        // Complete trade by adding 'stop' and 'to' to the history and tradeId listings
         _listing.stop = block.timestamp;
-        tradeId[_listing.tradeId].stop = _listing.stop;
         _listing.to = _bestOffer.account;
-        
         tradeId[_listing.tradeId].stop = _listing.stop;
         tradeId[_listing.tradeId].to = _listing.to;
 
-        listing memory newListing = listing(listVolume, _bestOffer.account, 0, 0, 0, address(0));
+        // Create new history and tradeId for new owner to accept static offers
+        listing memory newListing = listing(listVolume, _bestOffer.account, 0, block.timestamp, 1, address(0));
         tradeId[listVolume] = newListing;
         history[_id][history[_id].length] = newListing;
+        listVolume++;
         }
-    function adminCancelAuction(uint256 _id) public admin {
+    // let admin revert an auction (if not ended)
+    function adminCancelAuction(uint256 _id) public admin noreentry {
         listing storage _listing = history[_id][history[_id].length -1];
-        require(_listing.stop == 2, "Sale already cancelled");
-        require(_listing.stop < _listing.stop  , "Auction over");
+        require(_listing.stop != 2, "Sale already cancelled");
+        require(_listing.stop > block.timestamp, "Auction over, bids locked");
 
-        bid memory _bestOffer = bids[_listing.tradeId][bestOffer(_listing.tradeId)];
-        require(_bestOffer.amount != 0, "Invalid offer");
-        require(msg.sender == _bestOffer.account, "Not bid owner");
-
+        // Cancel trade by returning NFT and tokens
         sendNft(address(this), _listing.account, _id);
         escrowRefund(_listing.tradeId);
-
-        _listing.stop = 0;
+        _listing.stop = 2;
         tradeId[_listing.tradeId].stop = 2;
-        }
-    function cancelTrade(uint256 _tradeId) public {
-        require(msg.sender == tradeId[tradeId].account || msg.sender == owner(), "Not NFT owner");
-        uint256 _stop = history[_id][history[_id].length-1].stop;
-        require(_stop == 1 || _stop > history[_id][history[_id].length-1].start, "NFT not listed");
 
-        history[_id][history[_id].length-1].stop = 2;
-        if(bids[_id].length > 0) { escrowRefund(_id); }
+        // Create new history and tradeId for new owner to accept static offers
+        listing memory newListing = listing(listVolume, _listing.account, 0, block.timestamp, 1, address(0));
+        tradeId[listVolume] = newListing;
+        history[_id][history[_id].length] = newListing;
+        listVolume++;
         }
-    function cancelTrade2(uint256 _id) public {
-        require(msg.sender == nftContract.ownerOf(_id) || msg.sender == owner(), "Not NFT owner");
-        uint256 _stop = history[_id][history[_id].length-1].stop;
-        require(_stop == 1 || _stop > history[_id][history[_id].length-1].start, "NFT not listed");
-
-        history[_id][history[_id].length-1].stop = 2;
-        }
+    // let admin revert just bids for a specific auction
+    function adminClearAllBids(uint256 _tradeId) public admin noreentry { escrowRefund(_tradeId); }
     function escrowRefund(uint256 _tradeId) internal returns(bool success) {
         if(bids[_tradeId].length > 0) {
             for(uint256 i=0; i<bids[_tradeId].length; i++) {
@@ -279,22 +292,28 @@ contract TestContract is Ownable {
             }
         }
         }
-    function cancelBid(uint256 _id) public returns(bool success) {
-        require(bids[_id].length > 0);
-        uint256 _stop = history[_id][history[_id].length-1].stop;
-        require(_stop == 1 || _stop > history[_id][history[_id].length-1].start, "NFT sale complete");
-        
-        uint256 i=0;
-        while(bids[_id][i].account != msg.sender) { i++; }
-        require(bids[_id][i].account == msg.sender, "No bid exists");
-        
-        uint256 _amount = bids[_id][i].amount;
-        if(_amount > 10**18) {
-            bids[_id][i].amount = 0;
-            escrow -= _amount;
-            (success,) = bids[_id][i].account.call{value: _amount}("");
+    function sendNft(address _from, address _to, uint256 _id) internal {
+        //bytes memory payload = abi.encodeWithSignature("safeTransferFrom(address, address, uint256)", _from, _to, _id);
+        //(success,) = nftContract.call(payload);
+        nftContract.approve(_to, _id);
+        nftContract.safeTransferFrom(_from, _to, _id);
         }
+    // bid on any NFT except: fixed price or in auction ended status
+    function createBid(uint256 _id, uint256 _value) public payable {
+        require(msg.value >= _value);
+        listing memory _listing = history[_id][history[_id].length-1];
+        require(_listing.stop < 2 || _listing.stop > block.timestamp, "Auction over");
+        require(_listing.stop != 1, "Cannot bid on fixed prices");
+
+        bid[] storage _bids = bids[_listing.tradeId];
+        require(_bids.length < 1000, "Max bids 1000 per listing");
+
+        uint256 i = findBid(_listing.tradeId);
+        require(i != 1000, "An account bid already exists");
+        _bids.push(bid(msg.sender, _value));
+        escrow += _value;
         }
+    // edit current bid (you can only have one bid)
     function updateBid(uint256 _id, uint256 _value) public payable returns(bool success) {
         uint256 _stop = history[_id][history[_id].length-1].stop;
         require(_stop == 1 || _stop > history[_id][history[_id].length-1].start, "NFT sale complete");
@@ -310,16 +329,32 @@ contract TestContract is Ownable {
         } else { (success,) = msg.sender.call{value: value - _value}(""); }
         bids[_id][i].amount = _value;
         }
-    function createBid(uint256 _id, uint256 _value) public payable {
+    // cancel your bid altogether
+    function cancelBid(uint256 _id) public payable {
         require(msg.value >= _value);
-        uint256 _stop = history[_id][history[_id].length-1].stop;
-        require(_stop == 1 || _stop > history[_id][history[_id].length-1].start, "NFT sale complete");
+        listing memory _listing = history[_id][history[_id].length-1];
+        require(_listing.stop < 2 || _listing.stop > block.timestamp, "Auction over");
+        require(_listing.stop != 1, "Cannot bid on fixed prices");
 
-        uint256 i=0;
-        while(bids[_id][i].account != msg.sender) { i++; }
-        require(bids[_id][i].account != msg.sender, "Bid already exists");
-        bids[_id][i].amount = _value;
+        bid[] storage _bids = bids[_listing.tradeId];
+        require(_bids.length < 1000, "Max bids 1000 per listing");
+
+        uint256 i = findBid(_listing.tradeId, msg.sender);
+        require(i != 1000, "An account bid already exists");
+        _bids.push(bid(msg.sender, _value));
         escrow += _value;
+        }
+    // find list of active tradeIds
+    function findBids(address _account) public view returns(uint256[] memory _tradeIds) {
+        //uint256[] memory _bids = new uint256;
+        uint256[] memory _bids = new uint256[](myBids[_account].length);
+        uint256[] memory _indecies = new uint256[](myBids[_account].length);
+        for(uint256 i; i< myBids[_account].length; i++) _bids[i] = myBids[_account][i];
+        return _bids;
+        }
+    function findBid(uint256 _tradeId, address _account) public view returns(uint256) {
+        for(uint256 i=1; i< bids[_tradeId].length; i++) { if(bids[_tradeId][i].account == _account) return i; }
+        return 1000;
         }
     function buyTrade(uint256 _id) public payable returns(bool, bool){
         listing memory _listing = history[_id][history[_id].length-1];
@@ -345,12 +380,7 @@ contract TestContract is Ownable {
         //(success,) = _token.call(payload);
         //nftContract.safeTransferFrom(
     }
-    function sendNft(address _from, address _to, uint256 _id) internal {
-        //bytes memory payload = abi.encodeWithSignature("safeTransferFrom(address, address, uint256)", _from, _to, _id);
-        //(success,) = nftContract.call(payload);
-        nftContract.approve(_to, _id);
-        require(nftContract.safeTransferFrom(_from, _to, _id), "Not NFT owner");
-    }
+    
 
 
     

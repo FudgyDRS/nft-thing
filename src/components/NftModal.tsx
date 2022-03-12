@@ -19,6 +19,13 @@ import Identicon from "../Identicon";
 
 import { useEthers } from "../modules/usedapp2/hooks";
 
+// image
+// status block
+// tabs: Image (option goes away on desktop) / Data / History
+// Data Block / History Block
+// Buttons Block: disable buttons that aren't useable (all disabled by default)
+
+
 
 import CopyToClipboard from "react-copy-to-clipboard";
 
@@ -55,9 +62,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
         <ModalCloseButton
           color="white"
           fontSize="sm"
-          _hover={{
-            color: "whiteAlpha.700"
-          }}
+          _hover={{ color: "whiteAlpha.700" }}
         />
         <ModalBody pt={0} px={4}>
           <Box
@@ -71,9 +76,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
             mb={3}
           >
             <Flex justifyContent="space-between" alignItems="center" mb={3}>
-              <Text color="gray.400" fontSize="sm">
-                Connected with MetaMask
-              </Text>
+              <Text color="gray.400" fontSize="sm"> Connected with MetaMask </Text>
               <Button
                 variant="outline"
                 size="sm"
@@ -84,21 +87,14 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                 fontWeight="normal"
                 px={2}
                 height="26px"
-                _hover={{
-                  background: "none",
-                  borderColor: "blue.300",
-                  textDecoration: "underline"
-                }}
+                _hover={{ background: "none", borderColor: "blue.300", textDecoration: "underline" }}
                 onClick={handleDeactivateAccount}
-              >
-                Change
-              </Button>
+              > Change </Button>
             </Flex>
             <Flex alignItems="center" mt={2} mb={4} lineHeight={1}>
               <Identicon />
               <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">
-                {account &&
-                  `${account.slice(0, 6)}...${account.slice(account.length - 4, account.length)}`}
+                {account && `${account.slice(0, 6)}...${account.slice(account.length - 4, account.length)}`}
               </Text>
             </Flex>
             <Flex alignContent="center" m={3}>
@@ -108,10 +104,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                   color="gray.400"
                   fontWeight="normal"
                   fontSize="sm"
-                  _hover={{
-                    textDecoration: "none",
-                    color: "whiteAlpha.800"
-                  }}
+                  _hover={{ textDecoration: "none", color: "whiteAlpha.800" }}
                 >
                   <CopyIcon mr={1} />
                   Copy Address
@@ -125,10 +118,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                 isExternal
                 color="gray.400"
                 ml={6}
-                _hover={{
-                  color: "whiteAlpha.800",
-                  textDecoration: "underline"
-                }}
+                _hover={{ color: "whiteAlpha.800", textDecoration: "underline" }}
               >
                 <ExternalLinkIcon mr={1} />
                 View on Explorer
@@ -146,44 +136,38 @@ export default function AccountModal({ isOpen, onClose }: Props) {
         >
           <CardGroup>
             <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
+              <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Body>
                 <Card.Title>Card title</Card.Title>
                 <Card.Text>
                     This is a wider card with supporting text below as a natural lead-in to
                     additional content. This content is a little bit longer.
                 </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-                </Card.Footer>
+              </Card.Body>
+              <Card.Footer><small className="text-muted">Last updated 3 mins ago</small></Card.Footer>
             </Card>
             <Card>
-                <Card.Img variant="top" src="../data/json/temp.png" />
-                <Card.Body>
+              <Card.Img variant="top" src="../data/json/temp.png" />
+              <Card.Body>
                 <Card.Title>Card title</Card.Title>
                 <Card.Text>
                     This card has supporting text below as a natural lead-in to additional
                     content.{' '}
                 </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-                </Card.Footer>
+              </Card.Body>
+              <Card.Footer><small className="text-muted">Last updated 3 mins ago</small></Card.Footer>
             </Card>
             <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
+              <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Body>
                 <Card.Title>Card title</Card.Title>
                 <Card.Text>
                     This is a wider card with supporting text below as a natural lead-in to
                     additional content. This card has even longer content than the first to
                     show that equal height action.
                 </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
-                </Card.Footer>
+              </Card.Body>
+              <Card.Footer><small className="text-muted">Last updated 3 mins ago</small></Card.Footer>
             </Card>
             </CardGroup>
         </ModalFooter>

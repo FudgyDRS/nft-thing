@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Card, Row, Col } from "react-bootstrap";
+import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
 
 import {
   Box,
@@ -14,30 +17,41 @@ import {
   ModalCloseButton,
   Text
 } from "@chakra-ui/react";
-import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
+
+import { 
+  BalanceOf,
+  TokenByIndex,
+  TokensOfOwner,
+} from '../abi/mtvSharks';
+
+import { TotalSupply, CalculatePrice, MaxSupply } from '../abi/mtvSharks';
+
 import Identicon from "../Identicon";
-
 import { useEthers } from "../modules/usedapp2/hooks";
+import { formatUnits } from "@ethersproject/units";
 
-
-import CopyToClipboard from "react-copy-to-clipboard";
-
-import { Card, Row, Col } from "react-bootstrap";
-
-type Props = {
-  isOpen: any;
-  onClose: any;
-};
+type Props = { isOpen: any; onClose: any; };
 
 export default function AccountModal({ isOpen, onClose }: Props) {
   const [, setValue] = useState("");
-
   const { account, deactivate } = useEthers();
+  const balance = BalanceOf(account);
+  //const tokens = TokenByIndex,
+  //const tokens: any[] = TokensOfOwner(account);
 
   function handleDeactivateAccount() {
     deactivate();
     onClose();
   }
+
+  // function CreateArray() {
+  //   let textbody;
+  //   for(token: any of tokens) {
+  //     textbody = 
+  //   }
+  // }
+
+  //useEffect(() => {}, [balance, tokens])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
@@ -59,11 +73,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                 fontWeight="normal"
                 px={2}
                 height="26px"
-                _hover={{
-                  background: "none",
-                  borderColor: "blue.300",
-                  textDecoration: "underline"
-                }}
+                _hover={{ background: "none", borderColor: "blue.300", textDecoration: "underline" }}
                 onClick={handleDeactivateAccount}
               > Change </Button>
             </Flex>
@@ -80,10 +90,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                   color="gray.400"
                   fontWeight="normal"
                   fontSize="sm"
-                  _hover={{
-                    textDecoration: "none",
-                    color: "whiteAlpha.800"
-                  }}
+                  _hover={{ textDecoration: "none", color: "whiteAlpha.800" }}
                 >
                   <CopyIcon mr={1} />
                   Copy Address
@@ -97,10 +104,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                 isExternal
                 color="gray.400"
                 ml={6}
-                _hover={{
-                  color: "whiteAlpha.800",
-                  textDecoration: "underline"
-                }}
+                _hover={{ color: "whiteAlpha.800", textDecoration: "underline" }}
               >
                 <ExternalLinkIcon mr={1} />
                 View on Explorer
@@ -116,22 +120,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
           borderBottomRightRadius="3xl"
           p={6}
         >
-          <Row xs={1} md={2} className="g-4">
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <Col>
-                <Card>
-                  <Card.Img variant="top" src="holder.js/100px160" />
-                  <Card.Body>
-                    <Card.Title>Card title</Card.Title>
-                    <Card.Text>
-                      This is a longer card with supporting text below as a natural
-                      lead-in to additional content. This content is a little bit longer.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+          <Text>Balance: { balance && formatUnits(balance, 0) }</Text>
         </ModalFooter>
       </ModalContent>
     </Modal>

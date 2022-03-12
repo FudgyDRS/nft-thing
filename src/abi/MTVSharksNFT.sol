@@ -7,6 +7,7 @@ LIVE Contract:
 
 Input (Official JSON):
 "https://ipfs.infura.io/ipfs/QmXsHcHvrBWoRLb3jcqyuEUuxEaD8RumpFMxBsdNSnK3MW/"
+ipfs://QmXsHcHvrBWoRLb3jcqyuEUuxEaD8RumpFMxBsdNSnK3MW/
 
 Images (Official):
 "https://ipfs.infura.io/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/"
@@ -19,6 +20,18 @@ mtvsharks.sol :
 dweb:/ipfs/QmTgRpk5FcgLf7sXaTNnPTC7HioqFFWzRzKJwm6frd1FB1
 metadata.json : 
 dweb:/ipfs/QmfXCLrH2XSTYpvRMQa9jdVHXg75fNWcMVTrQM33UX5s8L
+
+
+LIVE:
+Metadata of "mtvsharkscontract" was published successfully.
+marketplace.sol : 
+dweb:/ipfs/QmSiBixZmSLY7hJuBAebCaQ5EYQjY2KvTPayGDnNLkeanT
+metadata.json : 
+dweb:/ipfs/QmRB7nHuk2igdXeR3cQnvi4Feps7D15Q9m6Jf7GYLWgmvR
+
+
+Contract:
+0xb00E44FC56400Ba18EACA72885315117a184244f
 */
 // SPDX-License-Identifier: MIT
 
@@ -687,7 +700,7 @@ contract MTVSharksContract is ERC721, Ownable {
     function toggleSale() public onlyOwner { isSaleEnabled = !isSaleEnabled; }
     function reserveGiveaway(uint256 _amount) public onlyOwner {
         require(totalSupply().add(_amount) <= maxSupply, "Exceeds maxSupply");
-        for(uint256 i=0; i<_amount; i++) { _safeMint(owner(), currentSupply++); }
+        for(uint256 i=0; i<_amount; i++) { _safeMint(receiver, currentSupply++); }
         }
 
     function withdrawAll() public onlyOwner { require(payable(msg.sender).send(address(this).balance)); }

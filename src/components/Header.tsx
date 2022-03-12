@@ -36,20 +36,20 @@ const Header = () => {
         {/* <li className="option mobile-option" onClick={closeMobileMenu}><a href="#">Account</a></li> */}
 
             
-            <li className="option mobile-option" onClick={closeMobileMenu}>
-                <ChakraProvider theme={theme}>
-                    <ConnectButton handleOpenModal={onOpen} />
-                    <AccountModal isOpen={isOpen} onClose={onClose} />
-                </ChakraProvider>
-            </li>
+          <li className="option mobile-option" onClick={closeMobileMenu}>
+              <ChakraProvider theme={theme}>
+                <ConnectButton handleOpenModal={onOpen} />
+                <AccountModal isOpen={isOpen} onClose={onClose} />
+              </ChakraProvider>
+          </li>
         </ul>
       </div>
       <ul className="signin-up">
         <li onClick={closeMobileMenu}>
         <ChakraProvider theme={theme}>
-                    <ConnectButton handleOpenModal={onOpen} />
-                    <AccountModal isOpen={isOpen} onClose={onClose} />
-                </ChakraProvider>
+          <ConnectButton handleOpenModal={onOpen} />
+          <AccountModal isOpen={isOpen} onClose={onClose} />
+        </ChakraProvider>
         </li>
       </ul>
       <div className="mobile-menu" onClick={handleClick}>

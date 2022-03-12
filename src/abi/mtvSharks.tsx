@@ -6,7 +6,11 @@ import interfaceAbi from "./mtvsharksAbi.json";
 
 import { utils } from "ethers";
 
-export const NFT = "0x822222AB8cC1b0eC78b1733Ec1A10315626ddE31";
+//TEST:
+//export const NFT = "0x822222AB8cC1b0eC78b1733Ec1A10315626ddE31";
+//LIVE:
+export const NFT = "0xb00E44FC56400Ba18EACA72885315117a184244f";
+
 export const ABI = new utils.Interface(interfaceAbi);
 
 export function Approve(to: string | Falsy, tokenId: string | Falsy) {

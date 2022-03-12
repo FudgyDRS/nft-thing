@@ -4,7 +4,7 @@ import Identicon from "../Identicon";
 
 import { useEthers, useEtherBalance } from "../modules/usedapp2/hooks";
 
-type Props = {  handleOpenModal: any; };
+type Props = { handleOpenModal: any; };
 
 export default function ConnectButton({ handleOpenModal }: Props) {
   const { activateBrowserWallet, account, chainId } = useEthers();
@@ -38,19 +38,13 @@ export default function ConnectButton({ handleOpenModal }: Props) {
         onClick={handleOpenModal}
         bg="gray.800"
         border="1px solid transparent"
-        _hover={{
-          border: "1px",
-          borderStyle: "solid",
-          borderColor: "blue.400",
-          backgroundColor: "gray.700"
-        }}
+        _hover={{ border: "1px", borderStyle: "solid", borderColor: "blue.400", backgroundColor: "gray.700" }}
         borderRadius="xl"
         m="1px"
         px={3}
       >
         <Text className="accountText" color="white" fontWeight="medium" mr="2">
-          {account &&
-            `${account.slice(0, 6)}...${account.slice(account.length - 4, account.length)}`}
+          {account && `${account.slice(0, 6)}...${account.slice(account.length - 4, account.length)}`}
         </Text>
         <Identicon />
       </Button>

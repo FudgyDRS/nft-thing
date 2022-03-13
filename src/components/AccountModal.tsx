@@ -120,7 +120,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
           borderBottomRightRadius="3xl"
           p={6}
         >
-          <Text>Balance: { balance && formatUnits(balance, 0) }</Text>
+          <Text color="white" fontSize="xl">Balance: { balance && formatUnits(balance, 0) }</Text>
         </ModalFooter>
       </ModalContent>
     </Modal>

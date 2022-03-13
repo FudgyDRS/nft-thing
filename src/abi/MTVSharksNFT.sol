@@ -25,14 +25,20 @@ dweb:/ipfs/QmfXCLrH2XSTYpvRMQa9jdVHXg75fNWcMVTrQM33UX5s8L
 LIVE:
 Metadata of "mtvsharkscontract" was published successfully.
 marketplace.sol : 
-dweb:/ipfs/QmSiBixZmSLY7hJuBAebCaQ5EYQjY2KvTPayGDnNLkeanT
+dweb:/ipfs/QmbFiK2JyP1Boxe9HXJKeqCJYiShmSjtNKyDeth7RQbPCV
 metadata.json : 
-dweb:/ipfs/QmRB7nHuk2igdXeR3cQnvi4Feps7D15Q9m6Jf7GYLWgmvR
+dweb:/ipfs/QmU39um1cbxQXQsHRoZioYBYD3FQ37vd2wT7bxoneX4P59
 
 
 Contract:
-0xb00E44FC56400Ba18EACA72885315117a184244f
+OLD: 0xb00E44FC56400Ba18EACA72885315117a184244f
+CURRENT: 0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1
 */
+
+
+
+/// max 33 nfts per wallet
+
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.8.11;
@@ -622,9 +628,16 @@ contract MTVSharksContract is ERC721, Ownable {
     using SafeMath for uint256;
     uint256 public maxSupply = 3333;
     uint256 public currentSupply;
-    //bool public isSaleEnabled = false;
-    bool public isSaleEnabled = true;
+    bool public isSaleEnabled = false;
+    //bool public isSaleEnabled = true;
     address public receiver = 0x5fCD25BF2007C8Ee90B8527a0012bAD683152B5F;
+
+    uint256 private maxWallet = 33;
+
+    modifier wallet() {
+        require(balanceOf(msg.sender) < maxWallet, "You can only have a max of 33.");
+        _;
+    }
 
     constructor(string memory baseURI) ERC721("MTV Sharks", "MTV Sharks") {
         setBaseURI(baseURI);
@@ -645,13 +658,12 @@ contract MTVSharksContract is ERC721, Ownable {
         }
         }
 
-    function mintNFT() public payable {
+    function mintNFT() public payable wallet {
         require(isSaleEnabled == true, "Sale hasn't started");
         require(currentSupply + 1 <= maxSupply, "Sale has already ended");
         uint256 cost = calculatePrice();
         require(msg.value >= cost, "MTV value below mint price");
         _safeMint(msg.sender, currentSupply++);
-        currentSupply++;
 
         if(msg.value > cost) { returnOverpay(msg.value - cost); }
         (bool success,) = receiver.call{value: address(this).balance}("");
@@ -670,7 +682,7 @@ contract MTVSharksContract is ERC721, Ownable {
         if      (currentSupply >= 2001) { return 666 * 10**18; }
         else if (currentSupply >= 1501) { return 555 * 10**18; }
         else if (currentSupply >= 1001) { return 444 * 10**18; }
-        else                            { return 333 * 10**18; }
+        else                            { return 333 * 10**10; }
         }
     function calculatePriceMultiple(uint256 _amount) public view returns (uint256) {
         uint256 over = currentSupply + _amount;

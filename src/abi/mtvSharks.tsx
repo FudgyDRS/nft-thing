@@ -8,8 +8,9 @@ import { utils } from "ethers";
 
 //TEST:
 //export const NFT = "0x822222AB8cC1b0eC78b1733Ec1A10315626ddE31";
-//LIVE:
-export const NFT = "0xb00E44FC56400Ba18EACA72885315117a184244f";
+//OLD LIVE:
+//export const NFT = "0xb00E44FC56400Ba18EACA72885315117a184244f";
+export const NFT = "0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1";
 
 export const ABI = new utils.Interface(interfaceAbi);
 

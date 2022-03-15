@@ -25,7 +25,7 @@ function GenerateCard({sharkObject}: Props) {
       <Button onClick={onOpen}>
         <Card className="generic-card" style={{ width: '200px' }}>
           <Card.Text className="card-status"><StatusCircle input={1}/></Card.Text>
-          <Card.Img variant="top" src={require("https://mtvsharks.s3.us-west-1.amazonaws.com/" + sharkObject["custom_fields"].edition + ".png").default} />
+          <Card.Img variant="top" src={"https://mtvsharks.s3.us-west-1.amazonaws.com/" + sharkObject["custom_fields"].edition + ".png"} />
           <Card.Body>
             <Card.Title>{sharkObject.name}</Card.Title>
             <Card.Text color="black" >Owner:<br/>{ownerOf}</Card.Text>

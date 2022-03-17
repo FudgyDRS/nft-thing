@@ -21,7 +21,7 @@ const BlockRecentMints: FC = () => {
   const { account } = useEthers();
   
   
-  
+  // tokensofowner not ordered: needs fixing
   function MakeArray(data: SharkObject[], totalMinted: any) {
     let newArray: SharkObject[] = [];
     for(let index=0; index<totalMinted; index++) { newArray = [data[index]].concat(newArray)}

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { SimpleGrid, Button } from '@chakra-ui/react';
 
 import { SharkObject } from "../models/MTV Sharks/SharkObject";
-import GenerateCard from "./GenerateCard";
-import "../styles/pagination.scss";
+import GenerateCard from "./AccountModalCard";
+import "../styles/modal.scss";
 
 const renderData = (data: SharkObject[]) => {
   return (
-    <SimpleGrid columns={5} spacing={10}>{data.map((todo: any, index: any) => {
-      return <li key={index} className="item"><GenerateCard sharkObject = {data[index]} /></li>;
+    <SimpleGrid columns={3} spacingY={28}>{data.map((todo: any, index: any) => {
+      return <li key={index} className="item" ><GenerateCard sharkObject = {data[index]} /></li>;
     })}</SimpleGrid>
   );
 };
@@ -18,7 +18,7 @@ interface Props { sharkObjects: SharkObject[]; }
 function PaginationComponent({ sharkObjects }: Props) {
   const [data, setData] = useState<SharkObject[]>([]);
   const [currentPage, setcurrentPage] = useState(1);
-  const [itemsPerPage, setitemsPerPage] = useState(10);
+  const [itemsPerPage, setitemsPerPage] = useState(6);
   const pages = [];
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) { pages.push(i); }
 
@@ -30,8 +30,10 @@ function PaginationComponent({ sharkObjects }: Props) {
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
 
-  useEffect(() => { setData(sharkObjects); }, []);
+  useEffect(() => { setData(sharkObjects); }, [currentItems]);
   const handleClick = (event: any) => { setcurrentPage(Number(event.target.id)); };
+
+  console.log("current data: ", data);
   
   const renderPageNumbers = pages.map((number: any) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
@@ -65,14 +67,14 @@ function PaginationComponent({ sharkObjects }: Props) {
   return (
     <>
       {renderData(currentItems)}
-<div className="pageNumbers">
+
       <ul className="pageNumbers">
         <Button onClick={handlePrevbtn} disabled={currentPage == pages[0] ? true : false} > Prev </Button>
         {pageDecrementBtn}
         {renderPageNumbers}
         {pageIncrementBtn}
         <Button onClick={handleNextbtn} disabled={currentPage == pages[pages.length - 1] ? true : false} > Next </Button>
-      </ul></div>
+      </ul>
    
     </>
   );

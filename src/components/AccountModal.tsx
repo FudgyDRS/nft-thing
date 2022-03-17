@@ -15,7 +15,8 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Text
+  Text,
+  Grid
 } from "@chakra-ui/react";
 
 import { 
@@ -29,6 +30,7 @@ import { TotalSupply, CalculatePrice, MaxSupply } from '../abi/mtvSharks';
 import Identicon from "../Identicon";
 import { useEthers } from "../modules/usedapp2/hooks";
 import { formatUnits } from "@ethersproject/units";
+import AccountModalCollection from "./AccountModalCollection";
 
 type Props = { isOpen: any; onClose: any; };
 
@@ -113,14 +115,18 @@ export default function AccountModal({ isOpen, onClose }: Props) {
           </Box>
         </ModalBody>
 
-        <ModalFooter
+        <ModalFooter 
           justifyContent="end"
           background="gray.700"
           borderBottomLeftRadius="3xl"
           borderBottomRightRadius="3xl"
-          p={6}
+          height="600px"
+          padding= "10px"
         >
-          <Text color="white" fontSize="xl">Balance: { balance && formatUnits(balance, 0) }</Text>
+          <Grid className="modal-footer">
+          <div className="modal-footer-balance">Balance: { balance && formatUnits(balance, 0) }</div>
+        <AccountModalCollection balance={balance && formatUnits(balance, 0)}/>
+        </Grid>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -10,7 +10,10 @@ import { utils } from "ethers";
 //export const NFT = "0x822222AB8cC1b0eC78b1733Ec1A10315626ddE31";
 //OLD LIVE:
 //export const NFT = "0xb00E44FC56400Ba18EACA72885315117a184244f";
-export const NFT = "0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1";
+//export const NFT = "0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1";
+
+//BSC Test:
+export const NFT = "0xb8Bb0a1089FEfBF7b98EaF748C78Dc153C1398c9";
 
 export const ABI = new utils.Interface(interfaceAbi);
 

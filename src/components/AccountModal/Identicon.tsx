@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import Jazzicon from "@metamask/jazzicon";
 
-import { useEthers } from "./modules/usedapp2/hooks";
+import { useEthers } from "../../modules/usedapp2/hooks";
 
 const StyledIdenticon = styled.div`
   height: 1rem;

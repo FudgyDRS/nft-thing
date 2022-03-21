@@ -70,12 +70,12 @@ interface IERC721 is IERC165 {
 
     function balanceOf(address owner) external view returns (uint256 balance);
     function ownerOf(uint256 tokenId) external view returns (address owner);
-    function safeTransferFrom(address from, address to, uint256 tokenId) external;
-    function transferFrom(address from, address to, uint256 tokenId) external;
     function approve(address to, uint256 tokenId) external;
     function getApproved(uint256 tokenId) external view returns (address operator);
     function setApprovalForAll(address operator, bool _approved) external;
     function isApprovedForAll(address owner, address operator) external view returns (bool);
+    function transferFrom(address from, address to, uint256 tokenId) external;
+    function safeTransferFrom(address from, address to, uint256 tokenId) external;
     function safeTransferFrom(address from, address to, uint256 tokenId, bytes calldata data) external;
     }
 interface IERC721Metadata is IERC721 {
@@ -628,11 +628,19 @@ contract MTVSharksContract is ERC721, Ownable {
     using SafeMath for uint256;
     uint256 public maxSupply = 3333;
     uint256 public currentSupply;
+    uint256 private maxWallet = 33;
+
     bool public isSaleEnabled = false;
-    //bool public isSaleEnabled = true;
+    bool internal locked;
+    modifier noreentry() {
+        require(!locked, "No re-entrance");
+        locked = true;
+        _;
+        locked = false;
+        }
     address public receiver = 0x5fCD25BF2007C8Ee90B8527a0012bAD683152B5F;
 
-    uint256 private maxWallet = 33;
+    
 
     modifier wallet() {
         require(balanceOf(msg.sender) < maxWallet, "You can only have a max of 33.");
@@ -646,7 +654,7 @@ contract MTVSharksContract is ERC721, Ownable {
     function setTokenReceiver(address _new) public onlyOwner {
         require(receiver != _new && receiver != address(0));
         receiver = _new;
-    }
+        }
     function tokensOfOwner(address _owner) external view returns (uint256[] memory) {
         uint256 tokenCount = balanceOf(_owner);
         if (tokenCount == 0) { return new uint256[](0); }
@@ -657,8 +665,7 @@ contract MTVSharksContract is ERC721, Ownable {
             return result;
         }
         }
-
-    function mintNFT() public payable wallet {
+    function mintNFT() public payable wallet noreentry {
         require(isSaleEnabled == true, "Sale hasn't started");
         require(currentSupply + 1 <= maxSupply, "Sale has already ended");
         uint256 cost = calculatePrice();
@@ -693,16 +700,7 @@ contract MTVSharksContract is ERC721, Ownable {
         else if (over >= 1001) { under = (1001 - currentSupply) * 333; over = (over - 1001) * 444; }
         else                   { under = 0;                            over = _amount * 333; }
         return (under + over) * 10**18;
-    }
-
-    // 150 nft to owner address
-    // 5% royality on all transfers
-    // 1-1000:      333 MTV per Shark
-    // 1001-1500:   444 MTV per Shark
-    // 1501-2000:   555 MTV per Shark
-    // 2001-3333:   666 MTV per Shark
-
-    
+        }
     function burn(uint256 _amount) public onlyOwner {
         require(_amount > 0 && _amount <= 1000, "You can only burn a 1 - 1000 at the time");
         require(totalSupply() <= maxSupply - _amount, "There NFT's are allready claimed");
@@ -714,7 +712,6 @@ contract MTVSharksContract is ERC721, Ownable {
         require(totalSupply().add(_amount) <= maxSupply, "Exceeds maxSupply");
         for(uint256 i=0; i<_amount; i++) { _safeMint(receiver, currentSupply++); }
         }
-
     function withdrawAll() public onlyOwner { require(payable(msg.sender).send(address(this).balance)); }
     function returnOverpay(uint256 _amount) internal returns(bool success) { (success, ) = msg.sender.call{ value: _amount }(""); }
     // No tokens should be sent into the contract: burn / take them

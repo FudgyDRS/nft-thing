@@ -15,7 +15,9 @@ export enum ChainId {
   BSC_Testnet = 97,
   FTM = 250,
   FTM_Testnet = 4002,
-  MultiVAC = 62621
+  MultiVAC = 62621,
+  Findora = 2152,
+  Findora_Testnet = 2153,
 }
 
 export const CHAIN_NAMES = {
@@ -35,7 +37,9 @@ export const CHAIN_NAMES = {
   [ChainId.BSC_Testnet]: "BSC_Testnet",
   [ChainId.FTM]: "FTM",
   [ChainId.FTM_Testnet]: "FTM_Testnet",
-  [ChainId.MultiVAC]: "MultiVAC"
+  [ChainId.MultiVAC]: "MultiVAC",
+  [ChainId.Findora]: "Findora",
+  [ChainId.Findora_Testnet]: "Findora_Testnet"
 };
 
 export const MULTICALL_ADDRESSES = {
@@ -52,7 +56,9 @@ export const MULTICALL_ADDRESSES = {
   [ChainId.Harmony]: "0xFE4980f62D708c2A84D3929859Ea226340759320",
   [ChainId.BSC_Testnet]: "0xBeA7a0Ea352fc5F7BC92566509964742186796c8",
   [ChainId.FTM_Testnet]: "0x23aDdd9b36ae4E5B83a70bbBF93709C44299A565",
-  [ChainId.MultiVAC]: "0x8924755a7FB45bF0A37A6A773795CFa878114A26"
+  [ChainId.MultiVAC]: "0x8924755a7FB45bF0A37A6A773795CFa878114A26",
+  [ChainId.Findora]: "0x0000000000000000000000000000000000000000",
+  [ChainId.Findora_Testnet]: "0x8924755a7FB45bF0A37A6A773795CFa878114A26",
 };
 
 export const TEST_CHAINS = [

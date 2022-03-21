@@ -23,7 +23,6 @@ import {
 import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
 
 import { SharkObject } from "../models/MTV Sharks/SharkObject";
-import Identicon from "../Identicon";
 import { useEthers } from "../modules/usedapp2/hooks";
 import StatusCircle from "./StatusCircle";
 
@@ -84,7 +83,7 @@ export default function NftModal({ isOpen, onClose, sharkObject }: Props) {
         <Header>
         <ModalBody pt={0} px={4}>
           <Box borderRadius="3xl" border="1px" borderStyle="solid" borderColor="gray.600" px={5} pt={4} pb={2} mb={3} >
-            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/" + String(sharkObject!["custom_fields"].edition-1) + ".png"} alt="MTV Sharks Club" />
+            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/" + String(sharkObject!["custom_fields"].edition) + ".png"} alt="MTV Sharks Club" />
           </Box>
           </ModalBody>
         <ModalBody pt={0} px={4}>

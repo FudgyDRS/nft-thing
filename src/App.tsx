@@ -35,6 +35,6 @@ const App: FC = () => {
       </HashRouter>
     </>
   ); 
-};   
+}; 
 
 export default App;

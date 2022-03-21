@@ -23,12 +23,12 @@ import {
   BalanceOf,
   TokenByIndex,
   TokensOfOwner,
-} from '../abi/mtvSharks';
+} from '../../abi/mtvSharks';
 
-import { TotalSupply, CalculatePrice, MaxSupply } from '../abi/mtvSharks';
+import { TotalSupply, CalculatePrice, MaxSupply } from '../../abi/mtvSharks';
 
-import Identicon from "../Identicon";
-import { useEthers } from "../modules/usedapp2/hooks";
+import Identicon from "./Identicon";
+import { useEthers } from "../../modules/usedapp2/hooks";
 import { formatUnits } from "@ethersproject/units";
 import AccountModalCollection from "./AccountModalCollection";
 

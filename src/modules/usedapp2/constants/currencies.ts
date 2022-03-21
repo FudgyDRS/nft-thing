@@ -35,11 +35,17 @@ export const FTM_Testnet = new Token(
 
 export const MTV = new NativeCurrency("MultiVAC", "MTV", ChainId.MultiVAC);
 
+export const Findora = new NativeCurrency("Findora", "FRA", ChainId.Findora);
+export const Findora_Testnet = new Token("FRA Testnet","tFRA",ChainId.Findora_Testnet,"0x8924755a7FB45bF0A37A6A773795CFa878114A26");
+
 export const NATIVE_CURRENCY = {
   [ChainId.Mainnet]: Ether,
   [ChainId.Kovan]: KovanEther,
   [ChainId.BSC]: BSC,
   [ChainId.BSC_Testnet]: BSC_Testnet,
   [ChainId.FTM]: FTM,
-  [ChainId.FTM_Testnet]: FTM_Testnet
+  [ChainId.FTM_Testnet]: FTM_Testnet,
+  [ChainId.MultiVAC]: MTV,
+  [ChainId.Findora]: Findora,
+  [ChainId.Findora_Testnet]: Findora_Testnet
 };

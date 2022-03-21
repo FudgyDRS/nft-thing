@@ -1,8 +1,8 @@
 import { Button, Box, Text } from "@chakra-ui/react";
 import { formatEther } from "@ethersproject/units";
-import Identicon from "../Identicon";
+import Identicon from "./Identicon";
 
-import { useEthers, useEtherBalance } from "../modules/usedapp2/hooks";
+import { useEthers, useEtherBalance } from "../../modules/usedapp2/hooks";
 
 type Props = { handleOpenModal: any; };
 
@@ -30,6 +30,10 @@ export default function ConnectButton({ handleOpenModal }: Props) {
             ? " tBNB"
             : chainId === 56
             ? " BNB"
+            : chainId === 2152
+            ? " FRA"
+            : chainId === 2153
+            ? " tFRA"
             : " ETH"} 
         </Text>
       </Box>

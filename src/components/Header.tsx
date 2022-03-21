@@ -4,8 +4,8 @@ import "../styles/header.scss";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 import { ChakraProvider, useDisclosure, Link, Image, theme } from "@chakra-ui/react";
-import ConnectButton from "./ConnectButton";
-import AccountModal from "./AccountModal";
+import ConnectButton from "./AccountModal/ConnectButton";
+import AccountModal from "./AccountModal/AccountModal";
 import "@fontsource/inter";
 
 

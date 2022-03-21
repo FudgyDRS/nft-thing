@@ -19,7 +19,6 @@ function GenerateCard({sharkObject}: Props) {
   let ownerOf;
   ownerOf = account ? OwnerOf(String(sharkObject!["custom_fields"].edition-1)) : undefined;
   ownerOf = ownerOf ? ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length) : "";
-  const v = sharkObject ? Number(sharkObject["custom_fields"].edition) : 1;
   return sharkObject ? (
     <>
       <Button onClick={onOpen}>

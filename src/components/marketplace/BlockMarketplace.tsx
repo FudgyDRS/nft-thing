@@ -77,11 +77,11 @@ const BlockMarketplace: FC = () => {
       </TabList>
     
       <TabPanels>
-        <TabPanel><p>one!</p></TabPanel>
-        <TabPanel><p>two!</p></TabPanel>
-        <TabPanel><p>three!</p></TabPanel>
-        <TabPanel><p>three!</p></TabPanel>
-        <TabPanel><p>three!</p></TabPanel>
+        <TabPanel><p>Coming soon!</p></TabPanel>
+        <TabPanel><p>Coming soon!</p></TabPanel>
+        <TabPanel><p>Coming soon!</p></TabPanel>
+        <TabPanel><p>Coming soon!</p></TabPanel>
+        <TabPanel><p>Coming soon!</p></TabPanel>
       </TabPanels>
     </Tabs></ChakraProvider>) 
     : (<ChakraProvider><Answer >Coming very soon!</Answer></ChakraProvider>)

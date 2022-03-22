@@ -1,5 +1,5 @@
 /*Desktop View*/
-.header {
+.header-header {
     display: flex;
     background: linear-gradient(#38c3fa, #0603b9);
     justify-content: space-between;
@@ -61,7 +61,7 @@
   }
   @media (max-width: 900px) {
     /*Mobile View */
-    .header {
+    .header-header {
       padding: 0px 10px;
     }
     .logo {

@@ -19,7 +19,7 @@ const Header = () => {
 
   
   return (
-    <div className="header">
+    <div className="header-header">
       <div className="logo-nav">
         <div className="logo-container">
         <Link href={`/#`} onClick={closeMobileMenu}><Image src={require("../assets/images/logo.png").default} className="logo" alt="MTV Sharks" /></Link>

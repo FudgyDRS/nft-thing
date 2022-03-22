@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FC } from "react";
+import "../styles/footer.scss";
 
 const FooterDefault = styled.div`
   min-width: 100vw;
@@ -18,7 +19,7 @@ const FooterDefault = styled.div`
 const Footer: FC = () => {
   return (
     <>
-      <FooterDefault className="footer">MTV Sharks</FooterDefault>
+      <div className="footer-footer">MTV Sharks</div>
     </>
   );
 };

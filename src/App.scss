@@ -155,3 +155,55 @@
   font-size: xl;
   justify-content: end;
 }
+
+.countdown-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  height: 80vh;
+}
+
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-radius: 0.6em;
+  padding: 1em;
+  width: 640px;
+
+  &-title {
+    color: white;
+    font-size: 2em;
+    font-weight: 800;
+  }
+
+  &-time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-width: 1px;
+    border-radius: 0.6em;
+    font-weight: 800;
+    font-size: 2em;
+    background-color: #282c34;
+    padding: 1em;
+
+    &-num {
+      color: white;
+      margin-left: 0.3em;
+    }
+
+    &-text {
+      color: red;
+      margin: 0.3em;
+    }
+  }
+}
+
+.default-dark {
+  height: 100vh;
+  background-color: #545a68;
+}

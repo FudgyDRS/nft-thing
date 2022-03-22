@@ -74,6 +74,7 @@
   margin-left: 2.5em
  }
 .background-faq {
+  padding-top: 80px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -160,8 +161,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1em;
-  height: 80vh;
+  height: 60vh;
 }
 
 .countdown {
@@ -204,6 +204,50 @@
 }
 
 .default-dark {
+  padding-top: 80px;
   height: 100vh;
   background-color: #545a68;
+}
+
+@media (max-width: 900px) {
+  .countdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-radius: 0.6em;
+    padding: 1em;
+    width: 380px;
+  
+    &-title {
+      color: white;
+      font-size: 1.2em;
+      font-weight: 800;
+    }
+  
+    &-time {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-width: 1px;
+      border-radius: 0.6em;
+      font-weight: 800;
+      font-size: 1.2em;
+      background-color: #282c34;
+      padding: 0.2;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+  
+      &-num {
+        color: white;
+        margin-left: 0.1em;
+      }
+  
+      &-text {
+        color: red;
+        margin: 0.1em;
+      }
+    }
+  }
 }

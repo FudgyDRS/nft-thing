@@ -67,7 +67,7 @@ const BlockMarketplace: FC = () => {
 
   useEffect(() => {}, [])
   return account 
-    ? (<ChakraProvider><Tabs variant='enclosed' colorScheme='green'>
+    ? (<ChakraProvider><Tabs variant='enclosed' colorScheme='green' paddingTop="80px">
       <TabList>
         <Tab>Active Auctions</Tab>
         <Tab>Active Sales</Tab>

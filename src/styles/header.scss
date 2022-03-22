@@ -4,8 +4,10 @@
     background: linear-gradient(#38c3fa, #0603b9);
     justify-content: space-between;
     align-items: center;
-    padding: 0px 40px;
     height: 80px;
+    position: fixed;
+    width: 100vw;
+    top: 0px;
   }
   .logo-nav {
     display: flex;

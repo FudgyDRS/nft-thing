@@ -27,12 +27,15 @@ Metadata of "mtvsharkscontract" was published successfully.
 marketplace.sol : 
 dweb:/ipfs/QmbFiK2JyP1Boxe9HXJKeqCJYiShmSjtNKyDeth7RQbPCV
 metadata.json : 
-dweb:/ipfs/QmU39um1cbxQXQsHRoZioYBYD3FQ37vd2wT7bxoneX4P59
+dweb:/ipfs/QmPHnKxfkMnsFMfdiCeQcnmCkf9VvxXx1aAJkJhKHAcBZC
+Metadata of "mtvsharkscontract" was published successfully.
+metadata.json : 
+dweb:/ipfs/QmR38isfUaTifpUKML4ycVQSo3qaZponkgJLQ392NHWDsy
 
 
-Contract:
-OLD: 0xb00E44FC56400Ba18EACA72885315117a184244f
-CURRENT: 0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1
+LIVE MTV Contract: 0x0b2814839b71FDBd81d4f179A485FEd4e7B25012
+
+BSC Testnet Contract: 0x328B697bb7a660B3a3fEC1c0913F1A1DD3fC7Bd9
 */
 
 

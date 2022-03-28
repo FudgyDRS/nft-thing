@@ -7,8 +7,6 @@ type Props = { amount: any};
 export default function MintMultipleButton({ amount }: Props) {
   const { account } = useEthers();
 
-  function testClick() {}
-
   // function mintFunction() {
   //   const result = MintMultipleNFT(amount);
   //   console.log("mint result: ", result);
@@ -36,13 +34,12 @@ export default function MintMultipleButton({ amount }: Props) {
       <Box width="142px" background="gray" borderRadius={"6px"} py="0">
         <Button
           onClick={MintMultipleNFT(amount)}
-          bg="gray.800"
-          border="1px solid transparent"
-          _hover={{ border: "1px", borderRadius: "10px", borderStyle: "solid", backgroundColor: "blue" }}
-          m="1px"
-          px={3}
-          height="38px"
-          width="140px"
+          background="gray"
+          height="38px" width="140px"
+          margin="1px"
+          paddingInlineStart="3px" paddingInlineEnd="3px"
+          border="1px" borderRadius="6px" borderStyle="solid" borderColor="transparent"
+          _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "blue" }}
         >
           <Box px="3"><Text color="white" fontSize="md"> Mint NFT(s) </Text></Box>
         </Button>
@@ -54,15 +51,12 @@ export default function MintMultipleButton({ amount }: Props) {
     <>
       <Box width="142px" background="red" borderRadius={"6px"} py="0">
         <Button
-          onClick={testClick}
-          bg="gray"
-          border="1px solid transparent"
-          _hover={{ border: "1px", borderRadius: "10px", borderStyle: "solid", backgroundColor: "red" }}
-          borderRadius="xl"
-          m="1px"
-          px={3}
-          height="38px"
-          width="140px"
+          background="gray"
+          height="38px" width="140px"
+          margin="1px"
+          paddingInlineStart="3px" paddingInlineEnd="3px"
+          border="1px" borderRadius="6px" borderStyle="solid" borderColor="transparent"
+          _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "red" }}
         >
           <Box px="3"><Text color="white" fontSize="md"> Mint NFT(s) </Text></Box>
         </Button>

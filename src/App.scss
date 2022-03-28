@@ -117,7 +117,7 @@
 
 .generic-card {
   background: #fff;
-  width: 24em;
+  width: 14em;
   border-radius: 0.6em;
   margin: 1em;
   overflow: hidden;
@@ -128,7 +128,7 @@
 
 .modal-card {
   background: #fff;
-  width: 14em;
+  width: 8em;
   font-weight: 800;
   border-radius: 0.6em;
   margin: -0.8em;
@@ -137,6 +137,8 @@
   box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25), 0 8px 16px -8px hsla(0, 0%, 0%, 0.3), 0 -6px 16px -6px hsla(0, 0%, 0%, 0.03);
   transition: all ease 200ms;
 }
+@media (max-width: 1150px) { .generic-card { width: 10em; } }
+@media (max-width: 800px) { .generic-card { width: 10em; } }
 
 .overlay {
   z-index: 10;
@@ -157,97 +159,24 @@
   justify-content: end;
 }
 
-.countdown-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-}
-
-.countdown {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-width: 1px;
-  border-radius: 0.6em;
-  padding: 1em;
-  width: 640px;
-
-  &-title {
-    color: white;
-    font-size: 2em;
-    font-weight: 800;
-  }
-
-  &-time {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-width: 1px;
-    border-radius: 0.6em;
-    font-weight: 800;
-    font-size: 2em;
-    background-color: #282c34;
-    padding: 1em;
-
-    &-num {
-      color: white;
-      margin-left: 0.3em;
-    }
-
-    &-text {
-      color: red;
-      margin: 0.3em;
-    }
-  }
-}
-
 .default-dark {
   padding-top: 80px;
   height: 100vh;
-  background-color: #545a68;
+  background-color: rgb(65, 65, 65);
 }
 
-@media (max-width: 900px) {
-  .countdown {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-width: 1px;
-    border-radius: 0.6em;
-    padding: 1em;
-    width: 380px;
-  
-    &-title {
-      color: white;
-      font-size: 1.2em;
-      font-weight: 800;
-    }
-  
-    &-time {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      border-width: 1px;
-      border-radius: 0.6em;
-      font-weight: 800;
-      font-size: 1.2em;
-      background-color: #282c34;
-      padding: 0.2;
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
-  
-      &-num {
-        color: white;
-        margin-left: 0.1em;
-      }
-  
-      &-text {
-        color: red;
-        margin: 0.1em;
-      }
-    }
-  }
+.generic-button {
+  background-color: rgb(128, 128, 128);
+  height: 38px;
+  width: 140px;
+  margin: 1px;
+  padding-inline-start: 3px;
+  padding-inline-end: 3px;
+  border: 1px;
+  border-radius: 6px;
+  border-style: solid;
+  border-color: transparent;
+
+  &-on:hover { background-color: rgb(0, 0, 255) }
+  &-off:hover { background-color: rgb(255, 0, 0) }
 }

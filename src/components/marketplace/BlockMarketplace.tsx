@@ -10,6 +10,7 @@ import { useEthers } from "../../modules/usedapp2/hooks";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 import { ChakraProvider } from '@chakra-ui/react'
+import BlockTransfer from "./BlockTransfer";
 
 // Coming Soon
 const Answer = styled.text`
@@ -66,24 +67,28 @@ const BlockMarketplace: FC = () => {
   //  Tx history
 
   useEffect(() => {}, [])
-  return account 
-    ? (<ChakraProvider><Tabs variant='enclosed' colorScheme='green' paddingTop="80px">
-      <TabList>
-        <Tab>Active Auctions</Tab>
-        <Tab>Active Sales</Tab>
-        <Tab>All NFTs</Tab>
-        <Tab>Unavalible</Tab>
-        <Tab>History</Tab>
-      </TabList>
-    
-      <TabPanels>
-        <TabPanel><p>Coming soon!</p></TabPanel>
-        <TabPanel><p>Coming soon!</p></TabPanel>
-        <TabPanel><p>Coming soon!</p></TabPanel>
-        <TabPanel><p>Coming soon!</p></TabPanel>
-        <TabPanel><p>Coming soon!</p></TabPanel>
-      </TabPanels>
-    </Tabs></ChakraProvider>) 
+  let gg = true;
+  return account && gg
+    ? (<Box marginTop={"80px"}><ChakraProvider>
+      <BlockTransfer/>
+      <Tabs variant='enclosed' colorScheme='green' paddingTop="80px">
+        <TabList>
+          <Tab>Active Auctions</Tab>
+          <Tab>Active Sales</Tab>
+          <Tab>All NFTs</Tab>
+          <Tab>Unavalible</Tab>
+          <Tab>History</Tab>
+        </TabList>
+      
+        <TabPanels>
+          <TabPanel><p>Coming soon!</p></TabPanel>
+          <TabPanel><p>Coming soon!</p></TabPanel>
+          <TabPanel><p>Coming soon!</p></TabPanel>
+          <TabPanel><p>Coming soon!</p></TabPanel>
+          <TabPanel><p>Coming soon!</p></TabPanel>
+        </TabPanels>
+      </Tabs>
+    </ChakraProvider></Box>) 
     : (<ChakraProvider><Answer >Coming very soon!</Answer></ChakraProvider>)
 }
 

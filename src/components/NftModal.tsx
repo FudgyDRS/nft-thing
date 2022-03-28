@@ -25,6 +25,9 @@ import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
 import { SharkObject } from "../models/MTV Sharks/SharkObject";
 import { useEthers } from "../modules/usedapp2/hooks";
 import StatusCircle from "./StatusCircle";
+import { OwnerOf, } from "../abi/mtvSharks";
+
+import MetadataBox from "./MetadataBox";
 
 // image
 // status block
@@ -36,7 +39,7 @@ const theme = extendTheme({
   components: {
     Modal: {
       baseStyle: (props: any) => ({
-        dialog: {
+        dialog: { 
           maxWidth: ["80%", "80%", "80%"],
           minWidth: "95%",
           maxHeight: ["80%", "80%", "80%"],
@@ -60,56 +63,49 @@ export default function NftModal({ isOpen, onClose, sharkObject }: Props) {
   const [, setValue] = useState("");
 
   const { account} = useEthers();
+  let ownerOf;
+  ownerOf = account ? OwnerOf(String(sharkObject!["custom_fields"].edition-1)) : undefined;
+  ownerOf = ownerOf ? ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length) : "";
+  let fileExtension = sharkObject!["custom_fields"].edition == "3333" ? ".jpg" : ".png";
   return (
     <ChakraProvider theme={theme}>
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
       <ModalOverlay />
-      <ModalContent
-        background="gray.900"
-        border="1px"
-        borderStyle="solid"
-        borderColor="gray.700"
-        borderRadius="3xl"
-      >
+      <ModalContent background="gray.900" border="1px" borderStyle="solid" borderColor="gray.700" borderRadius="3xl" >
         <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> {sharkObject.name} </ModalHeader>
         <Header>
           <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium">Status: <StatusCircle input={4} /></ModalHeader>
         </Header>
         <ModalCloseButton
-          color="white"
-          fontSize="sm"
+          color="white" fontSize="sm"
           _hover={{ color: "whiteAlpha.700" }}
         />
         <Header>
         <ModalBody pt={0} px={4}>
-          <Box borderRadius="3xl" border="1px" borderStyle="solid" borderColor="gray.600" px={5} pt={4} pb={2} mb={3} >
-            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/" + String(sharkObject!["custom_fields"].edition) + ".png"} alt="MTV Sharks Club" />
+          <Box borderRadius="2.2em" border="5px" borderStyle="solid" borderColor="gray.600" width={"400px"} 
+          borderStartColor={"blue"} borderEndColor={"blue"} borderTopColor={"blue"} borderBottomColor={"blue"}>
+            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/" + String(sharkObject!["custom_fields"].edition) + fileExtension} alt="MTV Sharks Club" 
+            borderRadius={"2em"} width={"400px"}/>
           </Box>
           </ModalBody>
         <ModalBody pt={0} px={4}>
-          <Box borderRadius="3xl" border="1px" borderStyle="solid" borderColor="gray.600" px={5} pt={4} pb={2} mb={3} >
+          <Box borderRadius="3xl" border="1px" borderStyle="solid" borderColor="gray.600" px={5} pt={4} pb={2} width={"400px"} >
             
             <Flex alignItems="center" mt={2} mb={4} lineHeight={1}>
-            <Text color="white">Owner: </Text>
-              <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">
-                {account && `${account.slice(0, 6)}...${account.slice(account.length - 4, account.length)}`}
-              </Text>
+            <Text color="white">Owner: {ownerOf}</Text>
               <Link
-                fontSize="sm"
-                display="flex"
-                alignItems="center"
-                href={`https://e.mtv.ac/account.html?address=${account}`}
-                isExternal
-                color="gray.400"
-                ml={6}
+                display="flex" alignItems="center" color="gray.400" ml={6}
+                href={`https://e.mtv.ac/account.html?address=${account}`} isExternal
                 _hover={{ color: "whiteAlpha.800", textDecoration: "underline" }}
               >
                 <ExternalLinkIcon mr={1} />
               </Link>
             </Flex>
             <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">Metadata:</Text>
-            <Text color="white" fontSize="l" fontWeight="semibold" ml="2" lineHeight="1.1">Generation in progress . . .</Text>
-          </Box>
+            <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">Coming soon!</Text>
+            {/* <MetadataBox index={sharkObject!["custom_fields"].edition-1}/> */}
+            </Box>
+            
         </ModalBody>
           </Header>
           <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> Transaction History: </ModalHeader>

@@ -3,14 +3,17 @@ import { SimpleGrid, Button } from '@chakra-ui/react';
 
 import { SharkObject } from "../models/MTV Sharks/SharkObject";
 import GenerateCard from "./GenerateCard";
+import { GenerateCard as GenerateTinyCard } from "./AccountModal/AccountModalCard";
 import "../styles/pagination.scss";
 
-const renderData = (data: SharkObject[]) => {
-  return (
-    <SimpleGrid columns={5} spacing={10}>{data.map((todo: any, index: any) => {
+const renderData = (data: SharkObject[], columns: number) => {
+  return window.innerWidth > 580
+    ? (<SimpleGrid columns={columns} spacing={10}>{data.map((todo: any, index: any) => {
       return <li key={index} className="item"><GenerateCard sharkObject = {data[index]} /></li>;
-    })}</SimpleGrid>
-  );
+    })}</SimpleGrid>)
+    : (<SimpleGrid columns={3} spacingY={28}>{data.map((todo: any, index: any) => {
+      return <li key={index} className="item"><GenerateTinyCard sharkObject = {data[index]} /></li>;
+    })}</SimpleGrid>);
 };
 
 ///@Dev - Only create a grid of paginated card objects given inputted data of type SharkObject[]
@@ -19,6 +22,9 @@ function PaginationComponent({ sharkObjects }: Props) {
   const [data, setData] = useState<SharkObject[]>([]);
   const [currentPage, setcurrentPage] = useState(1);
   const [itemsPerPage, setitemsPerPage] = useState(10);
+  console.log("Window width: ", window.innerWidth);
+  
+
   const pages = [];
   for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) { pages.push(i); }
 
@@ -29,8 +35,15 @@ function PaginationComponent({ sharkObjects }: Props) {
   const [pageNumberLimit, setpageNumberLimit] = useState(5);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+  const [columns, setColumns] = useState(5);
 
-  useEffect(() => { setData(sharkObjects); }, []);
+  useEffect(() => { 
+    // if(window.innerWidth < 800) {
+    //   setitemsPerPage(6);
+    //   setColumns(3);
+    // }
+    setData(sharkObjects); 
+  }, []);
   const handleClick = (event: any) => { setcurrentPage(Number(event.target.id)); };
   
   const renderPageNumbers = pages.map((number: any) => {
@@ -64,7 +77,7 @@ function PaginationComponent({ sharkObjects }: Props) {
 
   return (
     <>
-      {renderData(currentItems)}
+      {renderData(currentItems, columns)}
 <div className="pageNumbers">
       <ul className="pageNumbers">
         <Button onClick={handlePrevbtn} disabled={currentPage == pages[0] ? true : false} > Prev </Button>

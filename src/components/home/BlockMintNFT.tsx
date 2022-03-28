@@ -10,10 +10,10 @@ import "../../styles/mintBlock.scss";
 
 const BlockMintNFT: FC = () => {
 
-    const { account } = useEthers();
+    const { account } = useEthers(); 
     const totalSupply = TotalSupply();
     const maxSupply = MaxSupply();
-    const singlePrice = CalculatePrice();
+    const singlePrice = CalculatePrice(); 
 
     useEffect(() => { 
     }, [singlePrice, totalSupply, maxSupply])

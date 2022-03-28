@@ -15,8 +15,8 @@ const BlockRecentMints: FC = () => {
   const [mints, setMints] = useState<SharkObject[]>([]);
   const [bids, setBids] = useState<SharkObject[]>([]);
   const [auctions, setAuctions] = useState<SharkObject[]>([]);
-
-  const totalSupply = TotalSupply();
+ 
+  const totalSupply = TotalSupply(); 
   const [data, setData] = useState<SharkObject[]>([]);
   const { account } = useEthers();
   

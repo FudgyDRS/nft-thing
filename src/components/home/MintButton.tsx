@@ -2,23 +2,9 @@ import { FC, useEffect, useState, useRef, useCallback } from 'react';
 import { Button, Box, Text, Input } from "@chakra-ui/react";
 import { useEthers } from "../../modules/usedapp2/hooks";
 
-import { 
-    TotalSupply, 
-    MintMultipleNFT,
-    MintNFT,
-    BalanceOf,
-    CalculatePrice,
-    CalculatePriceMultiple,
-    CurrentSupply,
-    TokenByIndex,
-    TokenOfOwnerByIndex,
-    TokensOfOwner,
-    ABI, NFT
-  } from '../../abi/mtvSharks';
+import { CalculatePrice, ABI, NFT } from '../../abi/mtvSharks';
 import { ethers } from 'ethers';
 import { formatUnits } from '@ethersproject/units';
-
-//type Props = { account: any};
 
 const MintButton: FC = () => {
 
@@ -29,54 +15,45 @@ const MintButton: FC = () => {
   const provider = new ethers.providers.Web3Provider((window as any).ethereum);
   const signer = provider.getSigner();
   const token = NFT;
-  const abi = ABI;
+  const abi = ABI; 
   const contract = new ethers.Contract(token, abi, signer);
   //const option = {value: ethers.utils.parseEther(String(price*10**18))};
   
 
-  function testClick() { console.log(account); }
-
-  useEffect(() => {
-  }, [price])
+  useEffect(() => {}, [price])
 
   return account ? (
     <>
-      <Box width="142px" background="gray" borderRadius={"6px"} py="0">
         <Button
           onClick={() => {contract.mintNFT( {value: temp})}}
-          bg="gray.800"
-          border="1px solid transparent"
+          background="gray"
+          height="38px" width="140px"
+          margin="1px"
+          paddingInlineStart="3px" paddingInlineEnd="3px"
+          border="1px" borderRadius="6px" borderStyle="solid" borderColor="transparent"
           _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "blue" }}
-          m="1px"
-          px={3}
-          height="38px"
-          width="140px"
         >
-          <Box px="3"><Text color="white" fontSize="md"> Mint NFT </Text></Box>
+          <Text color={"white"} fontSize="1em"> Mint NFT </Text>
         </Button>
-      </Box>
       <br />
-      <Text color="green" fontSize="md"> Ready to mint . . . </Text>
+      <Text color="green" fontSize="1em"> Ready to mint . . . </Text>
     </>
   ) : (
     <>
-      <Box width="142px" background="red" borderRadius={"6px"} py="0">
+      <Box>
         <Button
-          onClick={testClick}
-          bg="gray"
-          border="1px solid transparent"
+          background="gray"
+          height="38px" width="140px"
+          margin="1px"
+          paddingInlineStart="3px" paddingInlineEnd="3px"
+          border="1px" borderRadius="6px" borderStyle="solid" borderColor="transparent"
           _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "red" }}
-          borderRadius="xl"
-          m="1px"
-          px={3}
-          height="38px"
-          width="140px"
         >
-          <Box px="3"><Text color="white" fontSize="md"> Mint NFT </Text></Box>
+          <Text color="white" fontSize="1em"> Mint NFT </Text>
         </Button>
       </Box>
       <br />
-      <Text color="red" fontSize="md"> Connect MTV wallet to mint . . . </Text>
+      <Text color="red" fontSize="1em"> Connect MTV wallet to mint . . . </Text>
     </>
   );
 }

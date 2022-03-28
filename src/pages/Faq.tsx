@@ -18,31 +18,13 @@ const Block = styled.div`
     margin-right: 0;
   }
 `;
-/*@media (max-width: 768px) {
-  .ethText {
-    font-size: 12pt;
-  }
-  .ethBox {
-    margin-inline: 10px;
-  }
-  .accountText {
-    font-size: 12pt;
-  }
-  .accountButton {
-    height: 38px;
-  }
-  .styledIdenticon {
-    height: 0.75rem;
-    width: 0.75rem;
-  }
-}*/
 
 const Faq: FC = () => {
   
     return (
       <div className="background-faq">
       <Block>
-        <BlockLaunchFaq/>
+        <BlockLaunchFaq/> 
       </Block>
       </div>
     );

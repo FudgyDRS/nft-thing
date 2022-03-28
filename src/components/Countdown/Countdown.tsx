@@ -1,29 +1,18 @@
 import { Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import "./countdown.scss";
 
 const futureDate = new Date(1648224000000);
 const getDateDiff = (date1: Date, date2: Date) => {
   const diff = new Date(date2.getTime() - date1.getTime());
   return {
-    year: diff.getUTCFullYear() - 1970,
-    month: diff.getUTCMonth(),
-    day: diff.getUTCDate() - 1,
-    hour: diff.getUTCHours(),
-    minute: diff.getUTCMinutes(),
-    second: diff.getUTCSeconds()
+    year:     diff.getUTCFullYear() - 1970,
+    month:    diff.getUTCMonth(),
+    day:      diff.getUTCDate() - 1,
+    hour:     diff.getUTCHours(),
+    minute:   diff.getUTCMinutes(),
+    second:   diff.getUTCSeconds()
   };
-};
-
-const formatDate = (date: Date) => {
-  let d = new Date(date),
-    month = (d.getMonth() + 1).toString(),
-    day = d.getDate().toString(),
-    year = d.getFullYear().toString();
-
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-
-  return [year, month, day].join("-");
 };
 
 export default function Countdown() {
@@ -38,7 +27,7 @@ export default function Countdown() {
 
   return (
     <div className="countdown-box">
-        <div className="countdown">
+      <div className="countdown">
         <Text className="countdown-title">Time Until Launch (4PM UTC)</Text>
         <div className="countdown-time">
             <Text className="countdown-time-num">{diff.day}   </Text><Text className="countdown-time-text"> DAYS </Text>
@@ -46,7 +35,7 @@ export default function Countdown() {
             <Text className="countdown-time-num">{diff.minute}</Text><Text className="countdown-time-text"> MINS </Text>
             <Text className="countdown-time-num">{diff.second}</Text><Text className="countdown-time-text"> SECS </Text>
         </div>
-        </div>
+      </div>
     </div>
   );
 }

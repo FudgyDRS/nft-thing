@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { SimpleGrid, Button } from '@chakra-ui/react';
 
 import { SharkObject } from "../../models/MTV Sharks/SharkObject";
-import GenerateCard from "./AccountModalCard";
+import { GenerateCard } from "./AccountModalCard";
 import "../../styles/modal.scss";
 
 const renderData = (data: SharkObject[]) => {

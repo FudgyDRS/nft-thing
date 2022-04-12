@@ -4,9 +4,9 @@ import { Input, Text, Box } from "@chakra-ui/react";
 import { useEthers } from "../../modules/usedapp2/hooks";
 //import { SharkObject } from "../../models/MTV Sharks/SharkObject";
 //import { OwnerOf } from '../../abi/mtvSharks';
-import TransferButton from './TransferButton';
+import { ButtonTransfer } from './Buttons';
 
-const BlockTransfer: FC = () => {
+const BlockApprove: FC = () => {
     const { account } = useEthers();
 
     //const [inputValue1, setInputValue1] = useState("");
@@ -30,8 +30,8 @@ const BlockTransfer: FC = () => {
     <Input className="quantity" backgroundColor={"#7e7e7e"} value={inputValue2} onChange={handleChange2}/>
     <Text>Token ID: </Text>
     <Input className="quantity" backgroundColor={"#7e7e7e"} value={inputValue3} marginBottom={"0.5em"} onChange={handleChange3}/>
-    <TransferButton _from={account} _to={inputValue2} _id={Number(inputValue3)-1}/>
+    <ButtonTransfer _from={account} _to={inputValue2} _tokenId={Number(inputValue3)-1}/>
     </Box>);
 }
  
-export default BlockTransfer;
+export default BlockApprove;

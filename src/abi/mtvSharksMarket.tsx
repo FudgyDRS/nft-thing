@@ -13,8 +13,8 @@ import { utils } from "ethers";
 //export const NFT = "0xa25f856Fe9CcC1e9A3109aeaf2880B4dD64694A1";
 
 //BSC Test:
-//export const NFT = "0x328B697bb7a660B3a3fEC1c0913F1A1DD3fC7Bd9";
-export const NFTMarket = "0x899ad834d5Bc0D78B4351c3620f747bD26a57E33";
+//export const NFT = "0x0169FA461F7F782Af511f11e7Cd49502e6c49F4C";
+export const NFTMarket = "0x228A1c3d279A06EF0Fa875A25DC31847b0C13E1F";
 
 // LIVE MTV NFT:
 //export const NFT = "0x0b2814839b71FDBd81d4f179A485FEd4e7B25012"; 
@@ -26,6 +26,10 @@ export const ABI = new utils.Interface(interfaceAbi);
 // GET FUNCTIONS:
 export function GetBid(_tradeId: string | Falsy, _account: string | Falsy) {
     const [result]: any = useContractCall({ abi: ABI, address: NFTMarket, method: "getBid", args: [_tradeId, _account] }) ?? []; return result; }
+export function GetLength(_id: string | Falsy, _state: string | Falsy) {
+    const [result]: any = useContractCall({ abi: ABI, address: NFTMarket, method: "getLength", args: [_id, _state] }) ?? []; return result; }
+export function GetMyLength(_state: string | Falsy) {
+    const [result]: any = useContractCall({ abi: ABI, address: NFTMarket, method: "getMyLength", args: [_state] }) ?? []; return result; }
 export function Bids(var1: string | Falsy, var2: string | Falsy) {
     const [result]: any = useContractCall({ abi: ABI, address: NFTMarket, method: "bids", args: [var1, var2] }) ?? []; return result; }
 export function History(var1: string | Falsy, var2: string | Falsy) {

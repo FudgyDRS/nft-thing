@@ -19,7 +19,11 @@ export default function TransferButton({ _from, _to, _id }: Props) {
   const isOwner = owner == account;
 
   function Transfer() {
-    contract["safeTransferFrom(address,address,uint256)"](_from, _to, _id-1)
+    contract["safeTransferFrom(address,address,uint256)"](_from, _to, _id)
+  }
+
+  function SetBaseURI() {
+    contract["setBaseURI(string)"]("https://ipfs.infura.io/ipfs/QmPUjwxJZVfUGyRwQpknz9tkCpuJnnprtHvHbExdSSU9rc/")
   }
 
   return account ? isOwner ? (
@@ -35,6 +39,19 @@ export default function TransferButton({ _from, _to, _id }: Props) {
           _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "blue" }}
         >
           <Box px="3"><Text color="white" fontSize="1em"> Transfer </Text></Box>
+        </Button>
+      </Box>
+      <Box width="142px" background="gray" borderRadius={"6px"} py="0">
+        <Button
+          onClick={SetBaseURI}
+          background="gray"
+          height="38px" width="140px"
+          margin="1px"
+          paddingInlineStart="3px" paddingInlineEnd="3px"
+          border="1px" borderRadius="6px" borderStyle="solid" borderColor="transparent"
+          _hover={{ border: "1px", borderRadius: "6px", borderStyle: "solid", backgroundColor: "blue" }}
+        >
+          <Box px="3"><Text color="white" fontSize="1em"> SetBaseURI </Text></Box>
         </Button>
       </Box>
       <br />

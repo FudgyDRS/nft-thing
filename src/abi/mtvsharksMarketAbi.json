@@ -35,17 +35,14 @@
             { "internalType": "bool"   , "name": "NFT"   , "type": "bool"    }
         ],
         "name"           : "burnRdnmTkn",
-        "outputs"        : [ { "internalType": "bool", "name": "success", "type": "bool" } ],
+        "outputs"        : [],
         "stateMutability": "nonpayable",
         "type"           : "function"
     },
     {
         "inputs"         : [ { "internalType": "uint256", "name": "_id", "type": "uint256" } ],
         "name"           : "buyTrade",
-        "outputs"        : [
-            { "internalType": "bool", "name": "success1", "type": "bool" },
-            { "internalType": "bool", "name": "success2", "type": "bool" }
-        ],
+        "outputs"        : [],
         "stateMutability": "payable",
         "type"           : "function"
     },
@@ -53,7 +50,7 @@
         "inputs"         : [ { "internalType": "uint256", "name": "_id", "type": "uint256" } ],
         "name"           : "cancelBid",
         "outputs"        : [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type"           : "function"
     },
     {
@@ -82,13 +79,6 @@
         "type"           : "function"
     },
     {
-        "inputs"         : [ { "internalType": "address", "name": "newOwner", "type": "address" } ],
-        "name"           : "transferOwnership",
-        "outputs"        : [],
-        "stateMutability": "nonpayable",
-        "type"           : "function"
-    },
-    {
         "inputs"         : [ { "internalType": "address", "name": "targetContract", "type": "address" } ],
         "stateMutability": "nonpayable",
         "type"           : "constructor"
@@ -103,6 +93,13 @@
         "type"     : "event"
     },
     { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+    {
+        "inputs"         : [ { "internalType": "address", "name": "newOwner", "type": "address" } ],
+        "name"           : "transferOwnership",
+        "outputs"        : [],
+        "stateMutability": "nonpayable",
+        "type"           : "function"
+    },
     {
         "inputs"         : [
             { "internalType": "uint256", "name": "_id" , "type": "uint256" },
@@ -147,6 +144,23 @@
             { "internalType": "address", "name": "_account", "type": "address" }
         ],
         "name"           : "getBid",
+        "outputs"        : [ { "internalType": "uint256", "name": "", "type": "uint256" } ],
+        "stateMutability": "view",
+        "type"           : "function"
+    },
+    {
+        "inputs"         : [
+            { "internalType": "uint256", "name": "_id"   , "type": "uint256" },
+            { "internalType": "bool"   , "name": "_state", "type": "bool"    }
+        ],
+        "name"           : "getLength",
+        "outputs"        : [ { "internalType": "uint256", "name": "", "type": "uint256" } ],
+        "stateMutability": "view",
+        "type"           : "function"
+    },
+    {
+        "inputs"         : [ { "internalType": "bool", "name": "_state", "type": "bool" } ],
+        "name"           : "getMyLength",
         "outputs"        : [ { "internalType": "uint256", "name": "", "type": "uint256" } ],
         "stateMutability": "view",
         "type"           : "function"

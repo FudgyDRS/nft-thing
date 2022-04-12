@@ -6,6 +6,7 @@ import Faq from "./pages/Faq";
 import Dao from "./pages/Dao";
 import Marketplace from "./pages/Marketplace";
 import SharkClub from "./pages/SharkClub";
+import AdminNFT from "./pages/AdminNFT";
 //import Configurations from "./pages/Configurations";
 import {
   HashRouter,
@@ -31,10 +32,11 @@ const App: FC = () => {
           <Route path="/dao" component={Dao} exact></Route>
           <Route path="/marketplace" component={Marketplace} exact></Route>
           <Route path="/the-shark-club" component={SharkClub} exact></Route>
+          <Route path="/admin-nft" component={AdminNFT} exact></Route>
         </Switch> 
       </HashRouter>
     </>
   ); 
-};
+}; 
 
 export default App;

@@ -2,6 +2,8 @@
 BSC Testnet:
 NFT: 0x328B697bb7a660B3a3fEC1c0913F1A1DD3fC7Bd9
 Market: 0x531598bE2735D388Ae8df09bC7d8085B458c127f
+Auction: 0x2E28EC4e5f14f157Cd04615a26943A5e015DE747
+https://testnet.bscscan.com/address/0x2E28EC4e5f14f157Cd04615a26943A5e015DE747#code
 */
 
 // SPDX-License-Identifier: MIT
@@ -31,7 +33,6 @@ contract TestContract is Ownable {
 
     uint256 public volume;              // num of successfully traded
     uint256 public tradeVolume;         // value of successfully traded
-    uint256 public floor;               // added by the most recent listing
     uint256 public listVolume;
     uint256 private escrow;
     uint256 fee = 50; // of 1000
@@ -69,6 +70,107 @@ contract TestContract is Ownable {
         for(uint256 i=1; i< bids[_tradeId].length; i++) { if(bids[_tradeId][i].account == _account) return i; }
         return 1000;
         }
+    function getHistory(uint256 _tokenId, uint256 min, uint256 max) public view returns (
+        uint256[] memory _tradeId, 
+        address[] memory _account, 
+        uint256[] memory _value, 
+        uint256[] memory _start, 
+        uint256[] memory _stop, 
+        address[] memory _to
+        ) {
+        uint256 historyLength = history[_tokenId].length;
+        require(min < historyLength, "Min out of range");
+        uint256 size = max > historyLength ? historyLength - min : max - min;
+        _tradeId    = new uint256[](size);
+        _account    = new address[](size);
+        _value      = new uint256[](size);
+        _start      = new uint256[](size);
+        _stop       = new uint256[](size);
+        _to         = new address[](size);
+
+        if(historyLength > 0) {
+            uint256 i=0;
+            for(min; min < max; min++) {
+                listing memory _listing = history[_tokenId][min];
+                _tradeId[i]   = _listing.tradeId;
+                _account[i]   = _listing.account;
+                _value[i]     = _listing.value;
+                _start[i]     = _listing.start;
+                _stop[i]      = _listing.stop;
+                _to[i]        = _listing.to;
+                i++;
+            }
+        }
+        return(_tradeId, _account, _value, _start, _stop, _to);
+        }
+    function getMyBids(address _address, uint256 min, uint256 max) public view returns(
+        uint256[] memory _tradeId, 
+        uint256[] memory _tokenId, 
+        uint256[] memory _index, 
+        uint256[] memory _amount
+        ) {
+            //mapping(uint256 => bid[]) public bids;
+            //mapping(address => uint256[]) public myBids;
+        uint256 bidsLength = myBids[_address].length;
+        require(min < bidsLength, "Min out of range");
+        uint256 size = max > bidsLength ? bidsLength - min : max - min;
+        _tokenId    = new uint256[](size);
+        _tradeId    = new uint256[](size);
+        _index      = new uint256[](size);
+        _amount     = new uint256[](size);
+
+        if(bidsLength > 0) {
+            uint256 i=0;
+            for(min; min < max; min++) {
+                uint256 _tradeIdIndex = myBids[_address][min];
+                uint256 _bidIndex = getBid(_tradeIdIndex, _address);
+                _tokenId[i]   = tradeId[_tradeIdIndex].tokenId;
+                _tradeId[i]   = _tradeIdIndex;
+                _index[i]   = _bidIndex;
+                _amount[i]  = bids[_tradeIdIndex][_bidIndex].amount;
+                i++;
+            }
+        }
+        return(_tokenId, _tradeId, _index, _amount);
+        }
+    function getMyListings(address _address, uint256 min, uint256 max) public view returns (
+        uint256[] memory _tokenId, 
+        uint256[] memory _tradeId, 
+        address[] memory _account, 
+        uint256[] memory _value, 
+        uint256[] memory _start, 
+        uint256[] memory _stop, 
+        address[] memory _to
+        ) {
+        uint256 listingsLength = myListings[_address].length;
+        require(min < listingsLength, "Min out of range");
+        uint256 size = max > listingsLength ? listingsLength - min : max - min;
+        _tokenId    = new uint256[](size);
+        _tradeId    = new uint256[](size);
+        _account    = new address[](size);
+        _value      = new uint256[](size);
+        _start      = new uint256[](size);
+        _stop       = new uint256[](size);
+        _to         = new address[](size);
+
+        if(listingsLength > 0) {
+            uint256 i=0;
+            for(min; min < max; min++) {
+                uint256 _index = myListings[_address][min];
+                listing memory _listing = tradeId[_index];
+                _tokenId[i]   = _listing.tokenId;
+                _tradeId[i]   = _listing.tradeId;
+                _account[i]   = _listing.account;
+                _value[i]     = _listing.value;
+                _start[i]     = _listing.start;
+                _stop[i]      = _listing.stop;
+                _to[i]        = _listing.to;
+                i++;
+            }
+        }
+        return(_tokenId, _tradeId, _account, _value, _start, _stop, _to);
+        }
+    
 //-----------------------------------------------------------------------------
 // MAIN FUNCTIONS:
     function listTrade(uint256 _tokenId, uint256 _value, uint256 _duration) public noreentry tradingEnabled {

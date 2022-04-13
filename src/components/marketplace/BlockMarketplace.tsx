@@ -1,16 +1,27 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Box } from "@chakra-ui/react";
+import { ChakraProvider, Box } from "@chakra-ui/react";
+import { ethers } from "ethers";
 
 import { SharkObject } from "../../models/MTV Sharks/SharkObject";
 import { Bid } from "../../models/marketplace/bid";
 import { Listing } from "../../models/marketplace/listing";
 import { useEthers } from "../../modules/usedapp2/hooks";
+import { NFTMarket, ABI as NFTABI } from "../../abi/mtvSharksMarket";
 
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-
-import { ChakraProvider } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Flex } from '@chakra-ui/react'
 import BlockTransfer from "./BlockTransfer";
+
+import BlockAuctionList from "./BlockAuctionList";
+import BlockAuctionComplete from "./BlockAuctionComplete";
+import BlockAuctionCancel from "./BlockAuctionCancel";
+
+import BlockBidCreate from "./BlockBidCreate";
+import BlockBidUpdate from "./BlockBidUpdate";
+import BlockBidCancel from "./BlockBidCancel";
+
+import BlockAdminAuctionCancel from "./BlockAdminAuctionCancel";
+import BlockAdminBidCancel from "./BlockAdminBidCancel";
 
 // Coming Soon
 const Answer = styled.text`
@@ -52,6 +63,11 @@ const BlockMarketplace: FC = () => {
   const myBidsTotal = 0;    // MyBids();
   const totalSupply = 0;    // NFT: MyBids();
 
+  const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(NFTMarket, NFTABI, signer);
+  //console.log(getListings)
+
   // notice log:
   // Sale Complete (Complete tx), Auction results, Offer accepted, Outbid, New Offer
 
@@ -70,7 +86,17 @@ const BlockMarketplace: FC = () => {
   let gg = true;
   return account && gg
     ? (<Box marginTop={"80px"}><ChakraProvider>
-      <BlockTransfer/>
+      <Flex maxW='xlg' borderWidth='1px' borderRadius='lg' flexDirection={"row"} flexWrap={"wrap"}>
+        <BlockTransfer/>
+        <BlockAuctionList/>
+        <BlockAuctionComplete/>
+        <BlockAuctionCancel/>
+        <BlockBidCreate/>
+        <BlockBidUpdate/>
+        <BlockBidCancel/>
+        <BlockAdminAuctionCancel/>
+        <BlockAdminBidCancel/>
+      </Flex>
       <Tabs variant='enclosed' colorScheme='green' paddingTop="80px">
         <TabList>
           <Tab>Active Auctions</Tab>

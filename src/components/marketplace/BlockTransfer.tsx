@@ -4,7 +4,7 @@ import { Input, Text, Box } from "@chakra-ui/react";
 import { useEthers } from "../../modules/usedapp2/hooks";
 //import { SharkObject } from "../../models/MTV Sharks/SharkObject";
 //import { OwnerOf } from '../../abi/mtvSharks';
-import TransferButton from './TransferButton';
+import TransferButton from './ButtonTransfer';
 
 const BlockTransfer: FC = () => {
     const { account } = useEthers();
@@ -24,6 +24,7 @@ const BlockTransfer: FC = () => {
     useEffect(() => {  }, [handleChange2, handleChange3])
 
     return(<Box width="400px" backgroundColor={"#282c34"} borderRadius={"0.6em"} padding={"0.8em"} margin={"1em"} textColor={"#ffffff"}>
+    <Text fontWeight={"1em"}>Transfer NFT</Text>
     <Text>From: </Text>
     <Input paddingEnd="-0.1em" backgroundColor={"#7e7e7e"} value={String(account)}/>
     <Text>To: </Text>

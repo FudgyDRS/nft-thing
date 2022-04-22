@@ -1,20 +1,27 @@
-import { useMemo } from "react";
-import { useTransactionsContext } from "../providers";
-import { useEthers } from "./useEthers";
+import { useMemo } from 'react'
+import { QueryParams } from '../constants/type/QueryParams'
+import { useTransactionsContext } from '../providers'
+import { useEthers } from './useEthers'
 
-export function useTransactions() {
-  const { chainId, account } = useEthers();
-  const { addTransaction, transactions } = useTransactionsContext();
+/**
+ * @public
+ */
+export function useTransactions(queryParams: QueryParams = {}) {
+  const { chainId: defaultChainId, account } = useEthers()
+  const { addTransaction, transactions } = useTransactionsContext()
+  const { chainId: _chainId } = queryParams
+
+  const chainId = useMemo(() => _chainId ?? defaultChainId, [_chainId, defaultChainId])
 
   const filtered = useMemo(() => {
     if (chainId === undefined || !account) {
-      return [];
+      return []
     }
-    return (transactions[chainId] ?? []).filter((x) => x.transaction.from === account);
-  }, [transactions, chainId, account]);
+    return (transactions[chainId] ?? []).filter((x) => x.transaction.from === account)
+  }, [transactions, chainId, account])
 
   return {
     transactions: filtered,
-    addTransaction
-  };
+    addTransaction,
+  }
 }

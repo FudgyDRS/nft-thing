@@ -1,31 +1,43 @@
-import { FC, useEffect } from "react";
-import { formatUnits } from "@ethersproject/units";
+import { FC, useEffect, useState } from "react";
 import { Box, Text } from '@chakra-ui/react';
+import { ethers } from "ethers";
+import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
 import { useEthers } from "../../modules/usedapp2/hooks";
-import { TotalSupply, CalculatePrice, MaxSupply } from '../../abi/mtvSharks';
 import MintButton from "./MintButton";
+import { ABI as abi, NFT as token } from '../../abi/nftFunctions';
 
 import "../../styles/mintBlock.scss";
 
 const BlockMintNFT: FC = () => {
+  const [ totalSupply, setTotalSupply ] = useState("");
+  const [ maxSupply, setMaxSupply ] = useState("");
+  const [ singlePrice, setSinglePrice ] = useState("");
 
-    const { account } = useEthers(); 
-    const totalSupply = TotalSupply();
-    const maxSupply = MaxSupply();
-    const singlePrice = CalculatePrice(); 
+  const { account } = useEthers(); 
+  const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(token, abi, signer);
 
-    useEffect(() => { 
-    }, [singlePrice, totalSupply, maxSupply])
+  contract["totalSupply"]()
+    .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 0); temp && setTotalSupply(temp);})
+    .catch((e: any) => { console.log(e); });
+  contract["maxSupply"]()
+    .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 0); temp && setMaxSupply(temp);})
+    .catch((e: any) => { console.log(e); });
+  contract["calculatePrice"]()
+    .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 18); temp && setSinglePrice(temp);})
+    .catch((e: any) => { console.log(e); });
+
+  useEffect(() => {}, [singlePrice, totalSupply, maxSupply])
     
-
   return account ? (
     <Box>
       <div className="mint-box">
         <div className="price-box">
-          <Text>{totalSupply && formatUnits(totalSupply, 0)} / {maxSupply && formatUnits(maxSupply, 0)} Minted</Text>
+          <Text>{totalSupply} / {maxSupply} Minted</Text>
           <Text>Cost to mint: </Text>
-          <Text>~{singlePrice && formatUnits(singlePrice, 18)} MTV</Text>
+          <Text>~{singlePrice} CRO</Text>
         </div>
         <div className="mint-button-box"><MintButton /></div>
       </div>

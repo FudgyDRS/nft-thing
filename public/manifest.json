@@ -1,6 +1,6 @@
 {
-  "short_name": "MTV Sharks",
-  "name": "MTV Sharks",
+  "short_name": "Rekt Apes",
+  "name": "Rekt Apes",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#283432",
+  "background_color": "#283432"
 }

@@ -1,37 +1,27 @@
-import { ChainId } from "../../constants";
-import { StoredTransaction, StoredTransactions } from "./model";
+import { StoredTransaction, StoredTransactions } from './model'
 
-type Action = AddTransaction | UpdateTransactions;
+type Action = AddTransaction | UpdateTransactions
 
 interface AddTransaction {
-  type: "ADD_TRANSACTION";
-  payload: StoredTransaction;
+  type: 'ADD_TRANSACTION'
+  payload: StoredTransaction
 }
 interface UpdateTransactions {
-  type: "UPDATE_TRANSACTIONS";
-  chainId: ChainId;
-  transactions: StoredTransaction[];
-}
-
-function isChainId(chainId: number): chainId is ChainId {
-  return Object.values(ChainId).includes(chainId);
+  type: 'UPDATE_TRANSACTIONS'
+  chainId: number
+  transactions: StoredTransaction[]
 }
 
 export function transactionReducer(state: StoredTransactions, action: Action): StoredTransactions {
   switch (action.type) {
-    case "ADD_TRANSACTION": {
-      const { chainId } = action.payload.transaction;
-
-      if (isChainId(chainId)) {
-        return {
-          ...state,
-          [chainId]: [action.payload, ...(state[chainId] ?? [])]
-        };
-      } else {
-        throw TypeError("Unsupported chain");
+    case 'ADD_TRANSACTION': {
+      const { chainId } = action.payload.transaction
+      return {
+        ...state,
+        [chainId]: [action.payload, ...(state[chainId] ?? [])],
       }
     }
-    case "UPDATE_TRANSACTIONS":
-      return { ...state, [action.chainId]: [...action.transactions] };
+    case 'UPDATE_TRANSACTIONS':
+      return { ...state, [action.chainId]: [...action.transactions] }
   }
 }

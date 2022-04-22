@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Button, Text } from "@chakra-ui/react";
 
-import { ABI, NFT } from '../../abi/mtvSharks';
+import { ABI, NFT } from '../../abi/nftFunctions';
 import { ethers } from 'ethers';
 
 type Burn = { _amount: any};

@@ -1,5 +1,4 @@
 import { FC } from "react";
-import BlockBanner from "../components/dao/BlockBanner";
 import styled from "styled-components";
 
 import BlockApprove from "../components/AdminNFT/BlockApprove";

@@ -4,7 +4,7 @@ import BlockMintNFT from "../components/home/BlockMintNFT";
 import BlockRecentMints from "../components/home/BlockRecentMints";
 
 //import { useEthers } from "../modules/usedapp2/hooks";
-//import { IsSaleEnabled, } from '../abi/mtvSharks';
+//import { IsSaleEnabled, } from '../abi/nftFunctions';
 
 const Home: FC = () => {
 
@@ -20,7 +20,7 @@ const Home: FC = () => {
 
   
     return ( 
-      <div>
+      <div >
         <BlockMintNFT />
         <BlockRecentMints />
       </div>

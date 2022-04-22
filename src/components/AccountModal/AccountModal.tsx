@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Card, Row, Col } from "react-bootstrap";
 import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
+import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
 import {
   Box,
@@ -19,46 +19,37 @@ import {
   Grid
 } from "@chakra-ui/react";
 
-import { 
-  BalanceOf,
-  TokenByIndex,
-  TokensOfOwner,
-} from '../../abi/mtvSharks';
-
-import { TotalSupply, CalculatePrice, MaxSupply } from '../../abi/mtvSharks';
-
-import Identicon from "./Identicon";
-import { useEthers } from "../../modules/usedapp2/hooks";
-import { formatUnits } from "@ethersproject/units";
+import { ABI as abi, NFT as token } from '../../abi/nftFunctions';
+import Identicon              from "./Identicon";
+import { useEthers }         from "../../modules/usedapp2/hooks";
 import AccountModalCollection from "./AccountModalCollection"; 
+import { ethers } from "ethers";
 
 type Props = { isOpen: any; onClose: any; };
-
 export default function AccountModal({ isOpen, onClose }: Props) {
   const [, setValue] = useState("");
+  const [ balanceOf, setBalanceOf ] = useState("");
+
   const { account, deactivate } = useEthers();
-  const balance = BalanceOf(account);
-  //const tokens = TokenByIndex,
-  //const tokens: any[] = TokensOfOwner(account); 
+  const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(token, abi, signer);
+
+  contract["balanceOf(address)"](account)
+    .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 0); temp && setBalanceOf(temp);})
+    .catch((e: any) => { console.log(e); });
+
+  useEffect(() => {}, [contract])
 
   function handleDeactivateAccount() {
     deactivate();
     onClose();
   }
 
-  // function CreateArray() {
-  //   let textbody;
-  //   for(token: any of tokens) {
-  //     textbody = 
-  //   }
-  // }
-
-  //useEffect(() => {}, [balance, tokens])
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
       <ModalOverlay />
-      <ModalContent background="gray.900" border="1px" borderStyle="solid" borderColor="gray.700" borderRadius="3xl" >
+      <ModalContent background="gray.900" border="1px" borderStyle="solid" borderColor="gray.700" borderRadius="3xl" marginTop="220px">
         <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> Account </ModalHeader>
         <ModalCloseButton color="white" fontSize="sm" _hover={{ color: "whiteAlpha.700" }} />
         <ModalBody pt={0} px={4}>
@@ -102,7 +93,7 @@ export default function AccountModal({ isOpen, onClose }: Props) {
                 fontSize="sm"
                 display="flex"
                 alignItems="center"
-                href={`https://e.mtv.ac/account.html?address=${account}`}
+                href={`https://cronos.org/explorer/address/${account}`}
                 isExternal
                 color="gray.400"
                 ml={6}
@@ -124,8 +115,8 @@ export default function AccountModal({ isOpen, onClose }: Props) {
           padding= "10px"
         >
           <Grid className="modal-footer">
-          <div className="modal-footer-balance">Balance: { balance && formatUnits(balance, 0) }</div>
-        <AccountModalCollection balance={balance && formatUnits(balance, 0)}/>
+          <div className="modal-footer-balance">Balance: {balanceOf}</div>
+        <AccountModalCollection balance={parseInt(balanceOf)}/>
         </Grid>
         </ModalFooter>
       </ModalContent>

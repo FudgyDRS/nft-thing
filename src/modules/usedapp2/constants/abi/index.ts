@@ -1,16 +1,21 @@
-import { Interface } from "@ethersproject/abi";
-import MultiCall from "./MultiCall.json";
-import ERC20 from "./ERC20.json";
-import ERC20Mock from "./ERC20Mock.json";
+import { Interface } from '@ethersproject/abi'
+import MultiCall from './MultiCall.json'
+import MultiCall2 from './MultiCall2.json'
+import ERC20 from './ERC20.json'
+import ERC20Mock from './ERC20Mock.json'
 
-const MultiCallABI = new Interface(MultiCall.abi);
+const MultiCallABI = new Interface(MultiCall.abi)
 
-export { MultiCall, MultiCallABI };
+export { MultiCall, MultiCallABI }
 
-const ERC20Interface = new Interface(ERC20.abi);
+const MultiCall2ABI = new Interface(MultiCall2.abi)
 
-export { ERC20, ERC20Interface };
+export { MultiCall2, MultiCall2ABI }
 
-const ERC20MockInterface = new Interface(ERC20Mock.abi);
+const ERC20Interface = new Interface(ERC20.abi)
 
-export { ERC20Mock, ERC20MockInterface };
+export { ERC20, ERC20Interface }
+
+const ERC20MockInterface = new Interface(ERC20Mock.abi)
+
+export { ERC20Mock, ERC20MockInterface }

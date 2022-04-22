@@ -1,13 +1,14 @@
 /*Desktop View*/
 .header-header {
     display: flex;
-    background: linear-gradient(#38c3fa, #0603b9);
+    background: linear-gradient(#c25e0c, #9b0000);
     justify-content: space-between;
     align-items: center;
     height: 80px;
     position: fixed;
     width: 100vw;
     top: 0px;
+    z-index: 15;
   }
   .logo-nav {
     display: flex;
@@ -20,7 +21,7 @@
     justify-content: center;
   }
   .logo {
-    width: 200px;
+    width: 40px;
     height: 40px;
 }
   .nav-options {
@@ -33,7 +34,10 @@
   .mobile-option {
     display: none;
   }
-  
+  .option {
+    color: white;
+    font-weight: 6rem;
+  }
   .option :hover {
     color: white;
   }
@@ -67,8 +71,8 @@
       padding: 0px 10px;
     }
     .logo {
-        width: 200px;
-        height: 40px;
+        width: 74px;
+        height: 74px;
     }
     .nav-options {
       display: flex;
@@ -84,11 +88,11 @@
       grid-gap: 0px;
     }
     .nav-options.active {
-      background: #9899d1;
+      background: #350e0e;
       left: 0;
       opacity: 1;
       transition: all 0.5s ease;
-      z-index: 1;
+      z-index: 15;
       align-content: center;
       padding-left: 0px;
     }

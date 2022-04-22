@@ -1,35 +1,34 @@
-import { ChainId } from "../../constants";
-import { Notification, Notifications } from "./model";
+import { Notification, Notifications } from './model'
 
 interface AddNotification {
-  type: "ADD_NOTIFICATION";
-  chainId: ChainId;
-  notification: Notification;
+  type: 'ADD_NOTIFICATION'
+  chainId: number
+  notification: Notification
 }
 
 interface RemoveNotification {
-  type: "REMOVE_NOTIFICATION";
-  chainId: ChainId;
-  notificationId: string;
+  type: 'REMOVE_NOTIFICATION'
+  chainId: number
+  notificationId: string
 }
 
-type Action = AddNotification | RemoveNotification;
+type Action = AddNotification | RemoveNotification
 
 export function notificationReducer(state: Notifications, action: Action): Notifications {
-  const { chainId } = action;
-  const chainState = state[chainId] ?? [];
+  const { chainId } = action
+  const chainState = state[chainId] ?? []
 
   switch (action.type) {
-    case "ADD_NOTIFICATION":
+    case 'ADD_NOTIFICATION':
       return {
         ...state,
-        [chainId]: [action.notification, ...chainState]
-      };
-    case "REMOVE_NOTIFICATION": {
+        [chainId]: [action.notification, ...chainState],
+      }
+    case 'REMOVE_NOTIFICATION': {
       return {
         ...state,
-        [chainId]: chainState.filter((notification) => notification.id !== action.notificationId)
-      };
+        [chainId]: chainState.filter((notification) => notification.id !== action.notificationId),
+      }
     }
   }
 }

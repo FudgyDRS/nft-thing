@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Card, CardGroup } from "react-bootstrap";
 import styled from "styled-components";
@@ -22,12 +22,13 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon, CopyIcon } from "@chakra-ui/icons";
 
-import { SharkObject } from "../models/MTV Sharks/SharkObject";
+import { ApeObject as NFTObject } from "../models/Rekt Apes/ApeObject";
 import { useEthers } from "../modules/usedapp2/hooks";
-import StatusCircle from "./StatusCircle";
-import { OwnerOf, } from "../abi/mtvSharks";
+//import StatusCircle from "./StatusCircle";
+import { ABI as abi, NFT as token } from '../abi/nftFunctions';
 
 import MetadataBox from "./MetadataBox";
+import { ethers } from "ethers";
 
 // image
 // status block
@@ -57,58 +58,69 @@ flex-direction: row;
 justify-content: space-between;
 `;
 
-type Props = { isOpen: any; onClose: any; sharkObject: SharkObject; };
-export default function NftModal({ isOpen, onClose, sharkObject }: Props) {
-  console.log("modal did something");
-  const [, setValue] = useState("");
+type Props = { isOpen: any; onClose: any; nftObject: NFTObject; };
+export default function NftModal({ isOpen, onClose, nftObject }: Props) {
+  const [ ownerOf, setOwnerOf ] = useState("");
 
-  const { account} = useEthers();
-  let ownerOf;
-  ownerOf = account ? OwnerOf(String(sharkObject!["custom_fields"].edition-1)) : undefined;
-  ownerOf = ownerOf ? ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length) : "";
-  let fileExtension = sharkObject!["custom_fields"].edition == "3333" ? ".jpg" : ".png";
+  const { account } = useEthers(); 
+  const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(token, abi, signer);
+
+  
+  useEffect(() => {
+    account && nftObject && (contract["ownerOf(uint256)"](String(nftObject!["edition"])))
+      .then((r: any) => { const temp = r; temp && setOwnerOf(temp);})
+      .catch((e: any) => { console.log(e); });
+    ownerOf ? setOwnerOf(ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length)) : setOwnerOf("");
+  }, [])
+
+  //ownerOf = account ? OwnerOf(String(nftObject!["edition"])) : undefined;
+  //ownerOf = ownerOf ? ownerOf.slice(0, 6) + "..." + ownerOf.slice(ownerOf.length - 4, ownerOf.length) : "";
+  
+  let fileExtension = nftObject!["edition"] == "3333" ? ".jpg" : ".png";
   return (
     <ChakraProvider theme={theme}>
     <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
       <ModalOverlay />
       <ModalContent background="gray.900" border="1px" borderStyle="solid" borderColor="gray.700" borderRadius="3xl" >
-        <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> {sharkObject.name} </ModalHeader>
-        <Header>
+        <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> {nftObject.name} </ModalHeader>
+        {/* <Header>
           <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium">Status: <StatusCircle input={4} /></ModalHeader>
-        </Header>
+        </Header> */}
         <ModalCloseButton
           color="white" fontSize="sm"
           _hover={{ color: "whiteAlpha.700" }}
         />
         <Header>
-        <ModalBody pt={0} px={4}>
+        <ModalBody pt={0} px={1.5}>
           <Box borderRadius="2.2em" border="5px" borderStyle="solid" borderColor="gray.600" width={"400px"} 
-          borderStartColor={"blue"} borderEndColor={"blue"} borderTopColor={"blue"} borderBottomColor={"blue"}>
-            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmWHBp5ogVWWugkCpBqLT8MygNr9ZJCXJfQi4oYWMqRR3W/" + String(sharkObject!["custom_fields"].edition) + fileExtension} alt="MTV Sharks Club" 
+            borderStartColor={"blue"} borderEndColor={"blue"} borderTopColor={"blue"} borderBottomColor={"blue"}>
+            <Image src={"https://fudgy.mypinata.cloud/ipfs/QmaHvkGj9ooAiDwDsVCdoUTbYqJfU5txQA8mR7xLYQwZKj/" + String(nftObject!["edition"]) + fileExtension} alt="Rekt Apes" 
             borderRadius={"2em"} width={"400px"}/>
           </Box>
-          </ModalBody>
-        <ModalBody pt={0} px={4}>
-          <Box borderRadius="3xl" border="1px" borderStyle="solid" borderColor="gray.600" px={5} pt={4} pb={2} width={"400px"} >
+          <Box  px={5} pt={4} pb={2} width={"400px"} >
             
             <Flex alignItems="center" mt={2} mb={4} lineHeight={1}>
             <Text color="white">Owner: {ownerOf}</Text>
               <Link
-                display="flex" alignItems="center" color="gray.400" ml={6}
-                href={`https://e.mtv.ac/account.html?address=${account}`} isExternal
+                display="flex" alignItems="center" color="gray.400" ml={3}
+                href={`https://cronos.org/explorer/address/${account}`} isExternal
                 _hover={{ color: "whiteAlpha.800", textDecoration: "underline" }}
               >
-                <ExternalLinkIcon mr={1} />
+                <ExternalLinkIcon mr={4} />
               </Link>
             </Flex>
             <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">Metadata:</Text>
-            <Text color="white" fontSize="xl" fontWeight="semibold" ml="2" lineHeight="1.1">Coming soon!</Text>
-            {/* <MetadataBox index={sharkObject!["custom_fields"].edition-1}/> */}
-            </Box>
+            <MetadataBox index={nftObject!["edition"]}/>
+          </Box>
+          </ModalBody>
+        <ModalBody pt={0} px={4}>
+          
             
         </ModalBody>
           </Header>
-          <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> Transaction History: </ModalHeader>
+          {/* <ModalHeader color="white" px={4} fontSize="lg" fontWeight="medium"> Transaction History: </ModalHeader> */}
         {/* <ModalFooter justifyContent="end" background="gray.700" borderBottomLeftRadius="3xl" borderBottomRightRadius="3xl" p={6} ><Text></Text></ModalFooter> */}
       </ModalContent>
     </Modal>

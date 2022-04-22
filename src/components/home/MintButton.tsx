@@ -1,31 +1,29 @@
-import { FC, useEffect, useState, useRef, useCallback } from 'react';
-import { Button, Box, Text, Input } from "@chakra-ui/react";
+import { FC, useEffect, useState } from 'react';
+import { Button, Box, Text } from "@chakra-ui/react";
 import { useEthers } from "../../modules/usedapp2/hooks";
 
-import { CalculatePrice, ABI, NFT } from '../../abi/mtvSharks';
+import { ABI as abi, NFT as token } from '../../abi/nftFunctions';
 import { ethers } from 'ethers';
-import { formatUnits } from '@ethersproject/units';
+import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
 const MintButton: FC = () => {
+  const [ singlePrice, setSinglePrice ] = useState("");
 
-  const { account } = useEthers();
-
-  const temp = CalculatePrice();
-  const price = temp && formatUnits(temp, 0);
+  const { account } = useEthers(); 
   const provider = new ethers.providers.Web3Provider((window as any).ethereum);
   const signer = provider.getSigner();
-  const token = NFT;
-  const abi = ABI; 
   const contract = new ethers.Contract(token, abi, signer);
-  //const option = {value: ethers.utils.parseEther(String(price*10**18))};
-  
 
-  useEffect(() => {}, [price])
+  contract["calculatePrice"]()
+    .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 0); temp && setSinglePrice(temp);})
+    .catch((e: any) => { console.log(e); });
+  
+  //useEffect(() => {}, [singlePrice])
 
   return account ? (
     <>
         <Button
-          onClick={() => {contract.mintNFT( {value: temp})}}
+          onClick={() => {contract.mintNFT( {value: singlePrice})}}
           background="gray"
           height="38px" width="140px"
           margin="1px"
@@ -53,7 +51,7 @@ const MintButton: FC = () => {
         </Button>
       </Box>
       <br />
-      <Text color="red" fontSize="1em"> Connect MTV wallet to mint . . . </Text>
+      <Text color="red" fontSize="1em"> Connect wallet to mint . . . </Text>
     </>
   );
 }

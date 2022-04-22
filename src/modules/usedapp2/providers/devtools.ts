@@ -1,58 +1,57 @@
-import { ChainId } from "../constants";
-import { ChainCall, ChainState } from "./chainState";
+import { RawCall, ChainState } from './chainState'
 
 // NOTE: If you modify this file please ensure consistency with
 // packages/extension/src/providers/events/Message.ts
 
 interface Init {
-  type: "INIT";
+  type: 'INIT'
 }
 
 interface NetworkChanged {
-  type: "NETWORK_CHANGED";
-  chainId?: ChainId;
-  multicallAddress?: string;
+  type: 'NETWORK_CHANGED'
+  chainId?: number
+  multicallAddress?: string
 }
 
 interface BlockNumberChanged {
-  type: "BLOCK_NUMBER_CHANGED";
-  chainId: ChainId;
-  blockNumber: number;
+  type: 'BLOCK_NUMBER_CHANGED'
+  chainId: number
+  blockNumber: number
 }
 
 interface AccountChanged {
-  type: "ACCOUNT_CHANGED";
-  address?: string;
+  type: 'ACCOUNT_CHANGED'
+  address?: string
 }
 
 interface CallsChanged {
-  type: "CALLS_CHANGED";
-  chainId?: ChainId;
-  calls: ChainCall[];
+  type: 'CALLS_CHANGED'
+  chainId?: number
+  calls: RawCall[]
 }
 
 interface MulticallSuccess {
-  type: "MULTICALL_SUCCESS";
-  multicallAddress: string;
-  duration: number;
-  chainId: ChainId;
-  blockNumber: number;
-  state: ChainState;
+  type: 'MULTICALL_SUCCESS'
+  multicallAddress: string
+  duration: number
+  chainId: number
+  blockNumber: number
+  state: ChainState
 }
 
 interface MulticallError {
-  type: "MULTICALL_ERROR";
-  multicallAddress: string;
-  duration: number;
-  calls: ChainCall[];
-  chainId: ChainId;
-  blockNumber: number;
-  error: any;
+  type: 'MULTICALL_ERROR'
+  multicallAddress: string
+  duration: number
+  calls: RawCall[]
+  chainId: number
+  blockNumber: number
+  error: any
 }
 
 interface GenericError {
-  type: "GENERIC_ERROR";
-  error: Error;
+  type: 'GENERIC_ERROR'
+  error: Error
 }
 
 type Notification =
@@ -63,34 +62,34 @@ type Notification =
   | CallsChanged
   | MulticallSuccess
   | MulticallError
-  | GenericError;
+  | GenericError
 
-let hook: any;
-if (typeof window !== "undefined") {
-  hook = (window as any).__USEDAPP_DEVTOOLS_HOOK__;
+let hook: any
+if (typeof window !== 'undefined') {
+  hook = (window as any).__USEDAPP_DEVTOOLS_HOOK__
 }
 
 // immediately notify devtools that the page is using it
-notifyDevtools({ type: "INIT" });
+notifyDevtools({ type: 'INIT' })
 
 export function notifyDevtools(notification: Notification) {
   if (!hook) {
-    return;
+    return
   }
-  if (notification.type === "INIT") {
-    hook.init();
+  if (notification.type === 'INIT') {
+    hook.init()
   } else {
-    if (notification.type === "MULTICALL_ERROR" || notification.type === "GENERIC_ERROR") {
-      notification.error = getErrorMessage(notification.error);
+    if (notification.type === 'MULTICALL_ERROR' || notification.type === 'GENERIC_ERROR') {
+      notification.error = getErrorMessage(notification.error)
     }
-    hook.send(notification);
+    hook.send(notification)
   }
 }
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error) {
-    return error.message;
+    return error.message
   } else {
-    return "" + error;
+    return '' + error
   }
 }

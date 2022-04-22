@@ -1,45 +1,49 @@
-import { useMemo } from "react";
-import { Notification, useNotificationsContext } from "../providers";
-import { useEthers } from "./useEthers";
-import { useInterval } from "./useInterval";
-import { useConfig } from "../providers/config/context";
+import { useMemo } from 'react'
+import { Notification, useNotificationsContext } from '../providers'
+import { useEthers } from './useEthers'
+import { useInterval } from './useInterval'
+import { useConfig } from '../providers/config/context'
 
 function getExpiredNotifications(notifications: Notification[], expirationPeriod: number) {
-  const timeFromCreation = (creationTime: number) => Date.now() - creationTime;
+  if (expirationPeriod === 0) {
+    return []
+  }
+  const timeFromCreation = (creationTime: number) => Date.now() - creationTime
 
-  return notifications.filter(
-    (notification) => timeFromCreation(notification.submittedAt) >= expirationPeriod
-  );
+  return notifications.filter((notification) => timeFromCreation(notification.submittedAt) >= expirationPeriod)
 }
 
+/**
+ * @public
+ */
 export function useNotifications() {
-  const { chainId, account } = useEthers();
-  const { addNotification, notifications, removeNotification } = useNotificationsContext();
+  const { chainId, account } = useEthers()
+  const { addNotification, notifications, removeNotification } = useNotificationsContext()
   const {
-    notifications: { checkInterval, expirationPeriod }
-  } = useConfig();
+    notifications: { checkInterval, expirationPeriod },
+  } = useConfig()
 
   const chainNotifications = useMemo(() => {
     if (chainId === undefined || !account) {
-      return [];
+      return []
     }
-    return notifications[chainId] ?? [];
-  }, [notifications, chainId, account]);
+    return notifications[chainId] ?? []
+  }, [notifications, chainId, account])
 
   useInterval(() => {
     if (!chainId) {
-      return;
+      return
     }
 
-    const expiredNotification = getExpiredNotifications(chainNotifications, expirationPeriod);
+    const expiredNotification = getExpiredNotifications(chainNotifications, expirationPeriod)
     for (const notification of expiredNotification) {
-      removeNotification({ notificationId: notification.id, chainId });
+      removeNotification({ notificationId: notification.id, chainId })
     }
-  }, checkInterval);
+  }, checkInterval)
 
   return {
     notifications: chainNotifications,
     addNotification,
-    removeNotification
-  };
+    removeNotification,
+  }
 }

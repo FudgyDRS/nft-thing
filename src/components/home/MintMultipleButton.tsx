@@ -1,14 +1,14 @@
 import { Button, Box, Text } from "@chakra-ui/react";
 
 import { useEthers } from "../../modules/usedapp2/hooks";
-import { MintMultipleNFT, } from '../../abi/mtvSharks';
+import { MintMultipleNFT, } from '../../abi/nftFunctions';
 
 type Props = { amount: any};
 export default function MintMultipleButton({ amount }: Props) {
   const { account } = useEthers();
 
   // function mintFunction() {
-  //   const result = MintMultipleNFT(amount);
+  //   const result = MintMultipleNFT(amount); 
   //   console.log("mint result: ", result);
   //   console.log(account);
   // }
@@ -62,7 +62,7 @@ export default function MintMultipleButton({ amount }: Props) {
         </Button>
       </Box>
       <br />
-      <Text color="red" fontSize="md"> Connect MTV wallet to mint . . . </Text>
+      <Text color="red" fontSize="md"> Connect wallet to mint . . . </Text>
     </>
   );
 }

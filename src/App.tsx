@@ -2,10 +2,6 @@ import { FC } from "react";
 import "./App.scss";
 
 import Home from "./pages/Home";
-import Faq from "./pages/Faq";
-import Dao from "./pages/Dao";
-import Marketplace from "./pages/Marketplace";
-import SharkClub from "./pages/SharkClub";
 import AdminNFT from "./pages/AdminNFT";
 //import Configurations from "./pages/Configurations";
 import {
@@ -28,14 +24,10 @@ const App: FC = () => {
       <HashRouter>
         <Switch>
           <Route path="/" component={Home} exact></Route>
-          <Route path="/faq" component={Faq} exact></Route>
-          <Route path="/dao" component={Dao} exact></Route>
-          <Route path="/marketplace" component={Marketplace} exact></Route>
-          <Route path="/the-shark-club" component={SharkClub} exact></Route>
           <Route path="/admin-nft" component={AdminNFT} exact></Route>
         </Switch> 
       </HashRouter>
-    </>
+    </> 
   );
 }; 
 

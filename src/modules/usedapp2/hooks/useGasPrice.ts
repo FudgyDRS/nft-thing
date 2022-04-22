@@ -1,22 +1,36 @@
-// @ts-nocheck
+import { useBlockNumber } from '../providers/blockNumber/blockNumber/context'
+import { BigNumber } from 'ethers'
+import { useEffect, useMemo, useState } from 'react'
+import { useEthers } from './useEthers'
+import { useReadonlyNetworks } from '../providers/network/readonlyNetworks'
+import { useBlockNumbers } from '../providers/blockNumber/blockNumbers'
+import { QueryParams } from '../constants/type/QueryParams'
 
-import { useBlockNumber } from "../providers/blockNumber/context";
-import { BigNumber } from "ethers";
-import { useEffect, useState } from "react";
-import { useEthers } from "./useEthers";
+/**
+ * @public
+ */
+export function useGasPrice(queryParams: QueryParams = {}): BigNumber | undefined {
+  const { library } = useEthers()
+  const providers = useReadonlyNetworks()
+  const _blockNumber = useBlockNumber()
+  const blockNumbers = useBlockNumbers()
 
-export function useGasPrice(): BigNumber | undefined {
-  const { library } = useEthers();
-  const blockNumber = useBlockNumber();
-  const [gasPrice, setGasPrice] = useState<BigNumber | undefined>();
+  const [gasPrice, setGasPrice] = useState<BigNumber | undefined>()
+
+  const { chainId } = queryParams
+
+  const [provider, blockNumber] = useMemo(
+    () => (chainId ? [providers[chainId], blockNumbers[chainId]] : [library, _blockNumber]),
+    [providers, library, blockNumbers, _blockNumber]
+  )
 
   async function updateGasPrice() {
-    setGasPrice(await library?.getGasPrice());
+    setGasPrice(await provider?.getGasPrice())
   }
 
   useEffect(() => {
-    updateGasPrice();
-  }, [library, blockNumber]);
+    void updateGasPrice()
+  }, [provider, blockNumber])
 
-  return gasPrice;
+  return gasPrice
 }

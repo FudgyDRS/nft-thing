@@ -1,47 +1,51 @@
-import { FC, useState, useEffect, useLayoutEffect } from "react";
-import styled from "styled-components";
-import { formatUnits } from "@ethersproject/units";
+import { FC, useState, useEffect } from "react";
 import { Box, Heading, Text, } from '@chakra-ui/react';
+import { isBigNumberish } from '@ethersproject/bignumber/lib/bignumber';
 
 import { useEthers } from "../../modules/usedapp2/hooks";
-import { SharkObject } from "../../models/MTV Sharks/SharkObject";
-import { TotalSupply } from '../../abi/mtvSharks';
+import { ApeObject as NFTObject } from "../../models/Rekt Apes/ApeObject";
+import { ABI as abi, NFT as token } from '../../abi/nftFunctions';
 import metadata from '../../abi/metadata.json';
 import PaginationComponent from '../PaginationComponent';
+import { ethers } from "ethers";
 
 const BlockRecentMints: FC = () => {
+  const [ totalSupply, setTotalSupply ] = useState("");
 
-  const [collection, setCollection] = useState<SharkObject[]>([]);
-  const [mints, setMints] = useState<SharkObject[]>([]);
-  const [bids, setBids] = useState<SharkObject[]>([]);
-  const [auctions, setAuctions] = useState<SharkObject[]>([]);
+  const { account } = useEthers(); 
+  const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(token, abi, signer);
+
+  
  
-  const totalSupply = TotalSupply(); 
-  const [data, setData] = useState<SharkObject[]>([]);
-  const { account } = useEthers();
-  
-  
-  // order is fine: indecies start ates
-  function MakeArray(data: SharkObject[], totalMinted: any) {
-    let newArray: SharkObject[] = [];
+  const [data, setData] = useState<NFTObject[]>([]);
+ 
+  function MakeArray(data: NFTObject[], totalMinted: any) {
+    let newArray: NFTObject[] = [];
     for(let index=0; index<totalMinted; index++) { newArray = [data[index]].concat(newArray)}
     return newArray;
   }
-  
+   
   function RecentMints(totalSupply: any) {
-    const sharkList: any = metadata;
-    const objects: SharkObject[] = sharkList;
-    const totalMinted = totalSupply && formatUnits(totalSupply, 0);
+    const nftList: any = metadata;
+    const objects: NFTObject[] = nftList;
+    const totalMinted = totalSupply && parseInt(totalSupply);
     setData(MakeArray(objects, totalMinted));
   };
   
-  useEffect(() => { RecentMints(totalSupply); }, [totalSupply])
+  useEffect(() => { 
+    RecentMints(totalSupply);
+    contract["totalSupply"]()
+      .then((r: any) => { const temp = isBigNumberish(r) && ethers.utils.formatUnits(r, 0); temp && setTotalSupply(temp);})
+      .catch((e: any) => { console.log(e); });
+   }, [totalSupply])
   
   if(account) {
     if(data.length!=0) { 
       return(<>
         <Heading>Recent Mints: </Heading>
-        <PaginationComponent sharkObjects = {data}/>
+        <PaginationComponent nftObjects = {data}/>
       </>)
     } else{ return (<><Text>Error: Data could not be loaded...</Text></>)}
   } else {

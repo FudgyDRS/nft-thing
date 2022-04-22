@@ -19,7 +19,7 @@ const FooterDefault = styled.div`
 const Footer: FC = () => {
   return (
     <>
-      <div className="footer-footer">MTV Sharks</div>
+      <div className="footer-footer">Copyright © 2022 Rekt Apes</div>
     </>
   );
 };

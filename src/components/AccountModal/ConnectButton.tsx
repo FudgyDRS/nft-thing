@@ -1,21 +1,24 @@
 import { Button, Box, Text } from "@chakra-ui/react";
 import { formatEther } from "@ethersproject/units";
 import Identicon from "./Identicon";
+import { ethers } from "ethers";
 
+//import { useEthers2, useEtherBalance } from "../../modules/usedapp2/hooks";
 import { useEthers, useEtherBalance } from "../../modules/usedapp2/hooks";
 
 type Props = { handleOpenModal: any; };
-
+//type Props = { handleOpenModal: any; handleOpenModal2: any; };
+//export default function ConnectButton({ handleOpenModal, handleOpenModal2 }: Props) {
 export default function ConnectButton({ handleOpenModal }: Props) {
   const { activateBrowserWallet, account, chainId } = useEthers();
   const etherBalance = useEtherBalance(account);
 
-  function handleConnectWallet() {
-    activateBrowserWallet();
-  }
+  function handleConnectWallet() { activateBrowserWallet(); }
+
+  console.log("useEtherBalance(account): ", etherBalance);
 
   return account ? (
-    <Box maxWidth={"320px"}>
+    <Box maxWidth={"320px"}> 
     <Box display="flex" alignItems="center" background="gray.700" borderRadius="xl" py="0" mr="4">
       <Box className="ethBox">
         <Text color="white" className="ethText">
@@ -34,7 +37,12 @@ export default function ConnectButton({ handleOpenModal }: Props) {
             ? " FRA"
             : chainId === 2153
             ? " tFRA"
-            : " ETH"} 
+            : chainId === 25
+            ? " CRO"
+            : chainId === 338
+            ? " tCRO"
+            : " ?ETH"
+          } 
         </Text>
       </Box>
       <Button
